@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/heraldovalenti/hydro-backend/issues"
   },
-  "homepage": "https://github.com/heraldovalenti/hydro-backend#readme"
+  "homepage": "https://github.com/heraldovalenti/hydro-backend#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.11.4",
+    "@babel/preset-env": "^7.11.0",
+    "babel-jest": "^26.3.0",
+    "jest": "^26.4.0"
+  }
 }
