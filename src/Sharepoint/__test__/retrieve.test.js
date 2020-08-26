@@ -1,4 +1,4 @@
-import {latestFiles, retrieveFile} from '../index';
+import {latestFiles, retrieveFile, collectLatestData} from '../retrieve';
 describe('general verification', () => {
   it('latest files simple test', async (done) => {
     const filesResponse = await latestFiles();
@@ -26,4 +26,9 @@ describe('general verification', () => {
 ${file}`);
     done();
   }, 15000);
+
+  it('collect latest data test', async () => {
+    const latestData = await collectLatestData();
+    console.log(latestData);
+  });
 });

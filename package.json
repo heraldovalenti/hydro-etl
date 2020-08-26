@@ -2,8 +2,10 @@
   "name": "hydro-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "babel src -d dist",
+    "start": "yarn build && node dist/index.js",
     "test": "jest"
   },
   "repository": {
@@ -16,8 +18,11 @@
     "url": "https://github.com/heraldovalenti/hydro-backend/issues"
   },
   "homepage": "https://github.com/heraldovalenti/hydro-backend#readme",
-  "dependencies": {},
+  "dependencies": {
+    "moment": "^2.27.0"
+  },
   "devDependencies": {
+    "@babel/cli": "^7.10.5",
     "@babel/core": "^7.11.4",
     "@babel/preset-env": "^7.11.0",
     "babel-jest": "^26.3.0",
