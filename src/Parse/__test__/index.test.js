@@ -6,9 +6,9 @@ describe('Parse verification', () => {
       fileName: 'CampoQuijano01-01-01.txt',
       rawData: 'Campo Quijano	Lluvia	2020-08-24 00:00:00.000	0	6.0	mm',
     });
-    expect(result.id).toBe('Campo Quijano');
-    expect(result.rainEntries.length).toBe(1);
-    expect(result.rainEntries[0].level).toBe('6.0');
+    expect(result.length).toBe(1);
+    expect(result[0].id).toBe('CampoQuijano');
+    expect(result[0].value).toBe('6.0');
   });
 
   it('not valid mapping verification', () => {

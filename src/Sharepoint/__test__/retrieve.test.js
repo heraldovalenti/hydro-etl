@@ -12,7 +12,7 @@ describe('general verification', () => {
         modified: fileEntry['Modified.'],
       };
     });
-    console.log(filesNames);
+    // console.log(filesNames);
     done();
   }, 15000);
 
@@ -29,6 +29,6 @@ ${file}`);
 
   it('collect latest data test', async () => {
     const latestData = await collectLatestData();
-    console.log(latestData);
-  });
+    console.log(latestData.substring(0, 500));
+  }, 15000);
 });
