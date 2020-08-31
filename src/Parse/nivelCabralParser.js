@@ -11,7 +11,7 @@ const DATE_FORMAT = `DD/MM/YY hh:mm:ss`;
 const CCORRAL_ID = 'CabraCorral';
 const CCORRAL_NIVEL = `CCorral`;
 const CCORRAL_CAUDAL = `PBlanca-Caudal`;
-const PBLANCA_ID = `PenasBlancas'`;
+const PBLANCA_ID = `PenasBlancas`;
 const PBLANCA_NIVEL = `PBlanca`;
 const NAME_ID_MAP = {
   [CCORRAL_NIVEL]: CCORRAL_ID,

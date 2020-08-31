@@ -23,6 +23,15 @@ describe('Nivel Cabral parser verification', () => {
   it('basic verification', () => {
     const result = nivelCabralParser(testData);
     expect(result.length).toBe(9);
+
+    const second = result[1];
+    expect(second.id).toBe('PenasBlancas');
+    expect(second.dimension).toBe('Nivel');
+    expect(second.value).toBe('942.10');
+    expect(second.date).toStrictEqual(
+      new Date(Date.parse('2020-08-24T02:45:06.000')),
+    );
+
     const last = result[8];
     expect(last.id).toBe('CabraCorral');
     expect(last.dimension).toBe('Caudal');
