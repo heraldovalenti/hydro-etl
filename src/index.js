@@ -1,7 +1,7 @@
 import {retrieveFile, latestFilesNonEmpty} from './Sharepoint';
 import {parseFile} from './Parse';
 
-const main = async () => {
+exports.latestData = async (_req, res) => {
   const filesWithData = await latestFilesNonEmpty();
   const promises = filesWithData.map((fileEntry) =>
     retrieveFile(fileEntry.fileRef),
@@ -15,7 +15,5 @@ const main = async () => {
   filesWithData.forEach((fileEntry) => {
     fileEntry.data = parseFile(fileEntry);
   });
-  console.log(JSON.stringify(filesWithData));
+  res.send(JSON.stringify(filesWithData));
 };
-
-main();
