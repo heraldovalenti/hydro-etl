@@ -15,5 +15,6 @@ exports.latestData = async (_req, res) => {
   filesWithData.forEach((fileEntry) => {
     fileEntry.data = parseFile(fileEntry);
   });
+  res.set('Access-Control-Allow-Origin', '*');
   res.send(JSON.stringify(filesWithData));
 };
