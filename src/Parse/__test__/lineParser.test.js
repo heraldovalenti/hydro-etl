@@ -24,14 +24,23 @@ describe('line parser verification', () => {
     expect(first.id).toBe(stationId);
     expect(first.dimension).toBe('Bateria');
     expect(first.value).toBe('12.6666669845581');
+    expect(first.date).toStrictEqual(
+      new Date(Date.parse('2020-08-24T03:00:00.000')),
+    );
     const second = result[1];
     expect(second.id).toBe(stationId);
     expect(second.dimension).toBe('Lluvia');
     expect(second.value).toBe('6.0');
     expect(second.unit).toBe('mm\r');
+    expect(second.date).toStrictEqual(
+      new Date(Date.parse('2020-08-24T00:00:00.000')),
+    );
     const last = result[11];
     expect(last.id).toBe(stationId);
     expect(last.dimension).toBe('Nivel');
     expect(last.value).toBe('0.42599999904632602');
+    expect(last.date).toStrictEqual(
+      new Date(Date.parse('2020-08-24T18:00:00.000')),
+    );
   });
 });

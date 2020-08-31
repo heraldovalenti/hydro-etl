@@ -4,7 +4,9 @@ import Observation, {
   DIMENSION_NIVEL,
   DIMENSION_ALARMA,
 } from '../Model/observation';
+import moment from 'moment';
 
+const DATE_FORMAT = `YYYY-MM-DD hh:mm:ss.SSS`;
 const BATTERY = `Bater�a`;
 const RAIN = `Lluvia`;
 const HEIGHT = `Altura`;
@@ -27,9 +29,11 @@ export const lineParser = (content, stationId) => {
     const lineParts = line.split(TAB_SEPARATOR);
     const type = lineParts[1];
     const dimension = DIMENSION_MAP[type];
+    const dateString = lineParts[2];
+    const date = moment(dateString, DATE_FORMAT).toDate();
     const entry = new Observation({
       id: stationId,
-      date: lineParts[2],
+      date: date,
       other: lineParts[3],
       value: lineParts[4],
       unit: lineParts[5],
