@@ -33,6 +33,11 @@ const FILE_PARSERS = [
     stationId: 'CampoQuijano',
   },
   {
+    namePrefix: 'punilla',
+    parser: LINE_PARSER,
+    stationId: 'Punilla',
+  },
+  {
     namePrefix: 'NivelTunal',
     parser: NIVEL_CAUDAL,
     stationId: 'Tunal',
