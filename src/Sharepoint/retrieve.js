@@ -50,13 +50,16 @@ export const latestFiles = async () => {
       res.on('end', () => {
         try {
           if (res.statusCode === 403) {
-            // console.error(`data: ${d.toString()}`);
-            reject(JSON.parse(rawData));
+            const response = JSON.parse(rawData);
+            response.statusCode = 403;
+            // console.error(`data: ${res.toString()}`);
+            reject(response);
           } else {
             const parsedData = JSON.parse(rawData);
             resolve(parsedData);
           }
         } catch (e) {
+          // console.log(`request end with error: ${JSON.stringify(e)}`);
           reject(e);
         }
       });

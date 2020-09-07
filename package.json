@@ -8,7 +8,7 @@
     "start": "yarn build && functions-framework --target=latestData",
     "test": "jest",
     "deploy-prep": "yarn install && yarn build && rm -rf node_modules && yarn install --production",
-    "deploy": "gcloud functions deploy latestData --runtime nodejs10 --trigger-http --allow-unauthenticated"
+    "deploy": "gcloud functions deploy latestData --runtime nodejs10 --trigger-http --allow-unauthenticated --env-vars-file=env.yaml"
   },
   "repository": {
     "type": "git",
