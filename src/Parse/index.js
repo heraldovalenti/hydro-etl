@@ -18,22 +18,22 @@ const FILE_PARSERS = [
     parser: NIVEL_CABRAL,
   },
   {
-    namePrefix: 'Cerrillos',
+    namePrefix: 'Cerrillos_',
     parser: LINE_PARSER,
     stationId: 'Cerrillos',
   },
   {
-    namePrefix: 'miraflores',
+    namePrefix: 'miraflores_',
     parser: LINE_PARSER,
     stationId: 'Miraflores',
   },
   {
-    namePrefix: 'CampoQuijano',
+    namePrefix: 'CampoQuijano_',
     parser: LINE_PARSER,
     stationId: 'CampoQuijano',
   },
   {
-    namePrefix: 'punilla',
+    namePrefix: 'punilla_',
     parser: LINE_PARSER,
     stationId: 'Punilla',
   },
@@ -54,17 +54,23 @@ const FILE_PARSERS = [
   },
 ];
 
-export const parseFile = (fileEntry) => {
+export const configsForFile = (fileEntry) => {
   const fileConfig = FILE_PARSERS.filter((config) => {
     const result = fileEntry.fileName.startsWith(config.namePrefix);
     return result;
   });
-  if (fileConfig.length === 0) {
+  return fileConfig;
+};
+
+export const parseFile = (fileEntry) => {
+  const fileConfig = configsForFile(fileEntry);
+  if (fileConfig.length == 0) {
     console.warn(
       `Parse configuration for file ${fileEntry.fileName} not found`,
     );
     return {};
   }
+  console.log(`parsing ${fileEntry.fileName}`);
   const parserName = fileConfig[0].parser;
   const stationId = fileConfig[0].stationId;
   const parser = mappings[parserName];

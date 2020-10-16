@@ -3,7 +3,7 @@ import {parseFile} from '../';
 describe('Parse verification', () => {
   it('valid mapping verification', () => {
     const result = parseFile({
-      fileName: 'CampoQuijano01-01-01.txt',
+      fileName: 'CampoQuijano_01-01-01.txt',
       rawData: 'Campo Quijano	Lluvia	2020-08-24 00:00:00.000	0	6.0	mm',
     });
     expect(result.length).toBe(1);
