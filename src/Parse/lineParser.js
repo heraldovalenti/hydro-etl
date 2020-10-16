@@ -5,6 +5,7 @@ import Observation, {
   DIMENSION_ALARMA,
 } from '../Model/observation';
 import moment from 'moment';
+import {SHAREPOINT_TIMEZONE} from '../config';
 
 const DATE_FORMAT = `YYYY-MM-DD hh:mm:ss.SSS`;
 const BATTERY = `Bater�a`;
@@ -30,7 +31,7 @@ export const lineParser = (content, stationId) => {
     const type = lineParts[1];
     const dimension = DIMENSION_MAP[type];
     const dateString = lineParts[2];
-    const date = moment(dateString, DATE_FORMAT).toDate();
+    const date = moment(dateString, DATE_FORMAT, SHAREPOINT_TIMEZONE).toDate();
     const entry = new Observation({
       id: stationId,
       date: date,

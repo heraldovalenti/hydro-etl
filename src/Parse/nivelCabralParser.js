@@ -1,4 +1,5 @@
 import moment from 'moment';
+import {SHAREPOINT_TIMEZONE} from '../config';
 import Observation, {
   DIMENSION_NIVEL,
   DIMENSION_CAUDAL,
@@ -35,9 +36,8 @@ export const nivelCabralParser = (content) => {
     if (!id) continue;
     const value = lineParts[1].split(DOUBLE_QUOTE)[1];
     const dateString = lineParts[2].split(DOUBLE_QUOTE)[1];
-    const date = moment(dateString, DATE_FORMAT).toDate();
+    const date = moment(dateString, DATE_FORMAT, SHAREPOINT_TIMEZONE).toDate();
     const dimension = NAME_DIMENSION_MAP[name];
-    // console.log(`line=${line} ${id} ${dimension} ${value} ${date}`);
     result.push(new Observation({id, dimension, value, date}));
   }
   return result;
