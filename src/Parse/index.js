@@ -42,6 +42,16 @@ const FILE_PARSERS = [
     parser: NIVEL_CAUDAL,
     stationId: 'Tunal',
   },
+  {
+    namePrefix: 'medina_',
+    parser: LINE_PARSER,
+    stationId: 'Medina',
+  },
+  {
+    namePrefix: 'cachi_',
+    parser: LINE_PARSER,
+    stationId: 'Cachi',
+  },
 ];
 
 export const parseFile = (fileEntry) => {
