@@ -27,8 +27,6 @@ describe('nivel_caudal parser verification', () => {
     expect(last.id).toBe('stationId');
     expect(last.dimension).toBe('Caudal');
     expect(last.value).toBe('41.21');
-    expect(last.date).toStrictEqual(
-      new Date(Date.parse('2020-08-24T21:10:02.000')),
-    );
+    expect(last.date).toBe('2020-08-25T00:10:02.000Z');
   });
 });

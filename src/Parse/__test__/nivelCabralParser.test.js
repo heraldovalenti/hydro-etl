@@ -28,16 +28,12 @@ describe('Nivel Cabral parser verification', () => {
     expect(second.id).toBe('PenasBlancas');
     expect(second.dimension).toBe('Nivel');
     expect(second.value).toBe('942.10');
-    expect(second.date).toStrictEqual(
-      new Date(Date.parse('2020-08-24T02:45:06.000')),
-    );
+    expect(second.date).toBe('2020-08-24T05:45:06.000Z');
 
     const last = result[8];
     expect(last.id).toBe('CabraCorral');
     expect(last.dimension).toBe('Caudal');
     expect(last.value).toBe('29.25');
-    expect(last.date).toStrictEqual(
-      new Date(Date.parse('2020-08-24T08:45:06.000')),
-    );
+    expect(last.date).toBe('2020-08-24T11:45:06.000Z');
   });
 });

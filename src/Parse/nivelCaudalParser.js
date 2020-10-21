@@ -1,6 +1,5 @@
-import moment from 'moment';
-import {SHAREPOINT_TIMEZONE} from '../config';
 import Observation from '../Model/observation';
+import {parseToISOString} from '../util/date';
 
 const LINE_SEPARATOR = `\n`;
 const COMMA_SEPARATOR = `,`;
@@ -16,7 +15,7 @@ export const nivelCaudalParser = (content, stationId) => {
     const dimension = lineParts[0].split(DOUBLE_QUOTE)[1];
     const value = lineParts[1].split(DOUBLE_QUOTE)[1];
     const dateString = lineParts[2].split(DOUBLE_QUOTE)[1];
-    const date = moment(dateString, DATE_FORMAT, SHAREPOINT_TIMEZONE).toDate();
+    const date = parseToISOString(dateString, DATE_FORMAT);
     const id = stationId;
     result.push(new Observation({id, dimension, value, date}));
   }

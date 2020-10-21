@@ -4,8 +4,7 @@ import Observation, {
   DIMENSION_NIVEL,
   DIMENSION_ALARMA,
 } from '../Model/observation';
-import moment from 'moment';
-import {SHAREPOINT_TIMEZONE} from '../config';
+import {parseToISOString} from '../util/date';
 
 const DATE_FORMAT = `YYYY-MM-DD hh:mm:ss.SSS`;
 const BATTERY = `Bater�a`;
@@ -23,18 +22,17 @@ const DIMENSION_MAP = {
 
 export const lineParser = (content, stationId) => {
   const lines = content.split(LINE_SEPARATOR);
-  const firstLine = lines[0].split(TAB_SEPARATOR);
   const result = [];
   for (let line of lines) {
     if (line.length === 0) continue;
     const lineParts = line.split(TAB_SEPARATOR);
     const type = lineParts[1];
     const dimension = DIMENSION_MAP[type];
-    const dateString = lineParts[2];
-    const date = moment(dateString, DATE_FORMAT, SHAREPOINT_TIMEZONE).toDate();
+    const rawDateString = lineParts[2];
+    const dateString = parseToISOString(rawDateString, DATE_FORMAT);
     const entry = new Observation({
       id: stationId,
-      date: date,
+      date: dateString,
       other: lineParts[3],
       value: lineParts[4],
       unit: lineParts[5],

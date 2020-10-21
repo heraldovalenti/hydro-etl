@@ -1,9 +1,8 @@
-import moment from 'moment';
-import {SHAREPOINT_TIMEZONE} from '../config';
 import Observation, {
   DIMENSION_NIVEL,
   DIMENSION_CAUDAL,
 } from '../Model/observation';
+import {parseToISOString} from '../util/date';
 
 const LINE_SEPARATOR = `\n`;
 const COMMA_SEPARATOR = `,`;
@@ -36,7 +35,7 @@ export const nivelCabralParser = (content) => {
     if (!id) continue;
     const value = lineParts[1].split(DOUBLE_QUOTE)[1];
     const dateString = lineParts[2].split(DOUBLE_QUOTE)[1];
-    const date = moment(dateString, DATE_FORMAT, SHAREPOINT_TIMEZONE).toDate();
+    const date = parseToISOString(dateString, DATE_FORMAT);
     const dimension = NAME_DIMENSION_MAP[name];
     result.push(new Observation({id, dimension, value, date}));
   }
