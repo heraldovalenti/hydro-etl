@@ -20,6 +20,7 @@ exports.latestData = async (_req, res) => {
     filesWithDataAndConfig.forEach((fileEntry) => {
       fileEntry.data = parseFile(fileEntry);
     });
+    res.set('Content-Type', 'application/json');
     res.send(JSON.stringify(filesWithDataAndConfig));
   } catch (e) {
     const statusCode = e.statusCode ? e.statusCode : 500;
