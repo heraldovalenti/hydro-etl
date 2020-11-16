@@ -37,7 +37,10 @@ export const nivelCabralParser = (content) => {
     const dateString = lineParts[2].split(DOUBLE_QUOTE)[1];
     const date = parseToISOString(dateString, DATE_FORMAT);
     const dimension = NAME_DIMENSION_MAP[name];
-    result.push(new Observation({id, dimension, value, date}));
+    const observation = new Observation({id, dimension, value, date});
+    if (observation.date) {
+      result.push(observation);
+    }
   }
   return result;
 };
