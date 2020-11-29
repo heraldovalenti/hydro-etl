@@ -1,15 +1,18 @@
 import {lineParser} from './lineParser';
 import {nivelCaudalParser} from './nivelCaudalParser';
 import {nivelCabralParser} from './nivelCabralParser';
+import {termoandesParser} from './termoandesParser';
 
 const LINE_PARSER = 'LINE_PARSER';
 const NIVEL_CAUDAL = 'NIVEL_CAUDAL';
 const NIVEL_CABRAL = 'NIVEL_CABRAL';
+const TERMOANDES = 'TERMOANDES';
 
 const mappings = {
   [LINE_PARSER]: lineParser,
   [NIVEL_CAUDAL]: nivelCaudalParser,
   [NIVEL_CABRAL]: nivelCabralParser,
+  [TERMOANDES]: termoandesParser,
 };
 
 const FILE_PARSERS = [
@@ -51,6 +54,11 @@ const FILE_PARSERS = [
     namePrefix: 'cachi_',
     parser: LINE_PARSER,
     stationId: 'Cachi',
+  },
+  {
+    namePrefix: 'TERMOANDES.txt',
+    parser: TERMOANDES,
+    stationId: 'Termoandes',
   },
 ];
 
