@@ -1,15 +1,22 @@
-import {retrieveFile, latestFilesNonEmpty} from './Sharepoint';
+import {latestFiles, retrieveFile} from './Sharepoint';
 import {parseFile, configsForFile} from './Parse';
+import {SHAREPOINT_AUTH_COOKIE} from './config';
 
-exports.latestData = async (_req, res) => {
+exports.latestData = async (req, res) => {
+  const getAuthToken = (authToken = SHAREPOINT_AUTH_COOKIE) => authToken;
+  const authToken = getAuthToken(req.query.authToken);
   res.set('Access-Control-Allow-Origin', '*');
+  if (!authToken) {
+    res.status(403).send({message: 'authToken is required'});
+    return;
+  }
   try {
-    const filesWithData = await latestFilesNonEmpty();
+    const filesWithData = await latestFiles(authToken);
     const filesWithDataAndConfig = filesWithData.filter((config) => {
       return configsForFile(config).length > 0;
     });
     const promises = filesWithDataAndConfig.map((fileEntry) =>
-      retrieveFile(fileEntry.fileRef),
+      retrieveFile(authToken, fileEntry.fileRef),
     );
     const promisesResults = await Promise.all(promises);
     for (let i = 0; i < filesWithDataAndConfig.length; i++) {

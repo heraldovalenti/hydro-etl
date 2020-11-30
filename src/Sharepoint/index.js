@@ -1,8 +1,3 @@
-import {
-  latestFiles,
-  retrieveFile,
-  latestFilesNonEmpty,
-  collectLatestData,
-} from './retrieve';
+import {retrieveFile, latestFilesNonEmpty} from './retrieve';
 
-export {latestFiles, retrieveFile, latestFilesNonEmpty};
+export {retrieveFile, latestFilesNonEmpty as latestFiles};
