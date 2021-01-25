@@ -33,4 +33,20 @@ describe('termoandes parser verification', () => {
     expect(fourth.date).toBe('2020-10-30T21:00:00.000Z');
     expect(fourth.value).toBe(3.4);
   });
+
+  it('limit verification', () => {
+    const result = termoandesParser(testData, 'Termoandess', 5);
+    expect(result.length).toBe(5);
+    const last = result[4];
+    expect(last.id).toBe('Termoandess');
+    expect(last.dimension).toBe(DIMENSION_LLUVIA);
+    expect(last.date).toBe('2020-10-31T00:00:00.000Z');
+    expect(last.value).toBe(0);
+
+    const first = result[0];
+    expect(first.id).toBe('Termoandess');
+    expect(first.dimension).toBe(DIMENSION_LLUVIA);
+    expect(first.date).toBe('2020-10-30T22:00:00.000Z');
+    expect(first.value).toBe(0);
+  });
 });
