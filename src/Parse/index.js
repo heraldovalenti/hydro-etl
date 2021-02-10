@@ -60,6 +60,11 @@ const FILE_PARSERS = [
     parser: TERMOANDES,
     stationId: 'Termoandes',
   },
+  {
+    namePrefix: 'alemania_',
+    parser: LINE_PARSER,
+    stationId: 'Alemania',
+  },
 ];
 
 export const configsForFile = (fileEntry) => {
