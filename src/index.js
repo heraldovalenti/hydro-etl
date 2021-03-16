@@ -5,6 +5,8 @@ import {SHAREPOINT_AUTH_COOKIE} from './config';
 exports.latestData = async (req, res) => {
   const getAuthToken = (authToken = SHAREPOINT_AUTH_COOKIE) => authToken;
   const authToken = getAuthToken(req.query.authToken);
+  const getShowRawData = (showRawData = false) => showRawData == 'true';
+  const showRawData = getShowRawData(req.query.showRawData);
   res.set('Access-Control-Allow-Origin', '*');
   if (!authToken) {
     res.status(403).send({message: 'authToken is required'});
@@ -26,6 +28,9 @@ exports.latestData = async (req, res) => {
     }
     filesWithDataAndConfig.forEach((fileEntry) => {
       fileEntry.data = parseFile(fileEntry);
+      if (!showRawData) {
+        delete fileEntry.rawData;
+      }
     });
     res.set('Content-Type', 'application/json');
     res.send(JSON.stringify(filesWithDataAndConfig));
