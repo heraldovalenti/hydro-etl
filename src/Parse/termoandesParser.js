@@ -7,7 +7,7 @@ const DOUBLE_QUOTE = `"`;
 const DATE_FORMAT = `YYYY-MM-DD hh:mm:ss`;
 const STATION_ID = 'Termoandes';
 
-const RESULT_LIMIT = 2 * 24 * 3;
+const RESULT_LIMIT = 2 * 24; // 1 day (2 observations per hour)
 export const termoandesParser = (
   content,
   stationId = STATION_ID,
