@@ -5,12 +5,11 @@ const LINE_SEPARATOR = `\n`;
 const COMMA_SEPARATOR = `,`;
 const DOUBLE_QUOTE = `"`;
 const DATE_FORMAT = `YYYY-MM-DD hh:mm:ss`;
-const STATION_ID = 'Termoandes';
 
 const RESULT_LIMIT = 2 * 24; // 1 day (2 observations per hour)
-export const termoandesParser = (
+export const singleFileParser = (
   content,
-  stationId = STATION_ID,
+  stationId,
   resultLimit = RESULT_LIMIT,
 ) => {
   const lines = content.split(LINE_SEPARATOR);
@@ -40,7 +39,7 @@ export const termoandesParser = (
         )
       : observations;
   console.log(
-    `Termoandes results=${observations.length}, truncated=${result.length}`,
+    `SingleFileParser for ${stationId} results=${observations.length}, truncated=${result.length}`,
   );
   return result;
 };

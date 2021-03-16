@@ -1,18 +1,18 @@
 import {lineParser} from './lineParser';
 import {nivelCaudalParser} from './nivelCaudalParser';
 import {nivelCabralParser} from './nivelCabralParser';
-import {termoandesParser} from './termoandesParser';
+import {singleFileParser} from './singleFileParser';
 
 const LINE_PARSER = 'LINE_PARSER';
 const NIVEL_CAUDAL = 'NIVEL_CAUDAL';
 const NIVEL_CABRAL = 'NIVEL_CABRAL';
-const TERMOANDES = 'TERMOANDES';
+const SINGLE_FILE = 'SINGLE_FILE';
 
 const mappings = {
   [LINE_PARSER]: lineParser,
   [NIVEL_CAUDAL]: nivelCaudalParser,
   [NIVEL_CABRAL]: nivelCabralParser,
-  [TERMOANDES]: termoandesParser,
+  [SINGLE_FILE]: singleFileParser,
 };
 
 const FILE_PARSERS = [
@@ -57,13 +57,23 @@ const FILE_PARSERS = [
   },
   {
     namePrefix: 'TERMOANDES.txt',
-    parser: TERMOANDES,
+    parser: SINGLE_FILE,
     stationId: 'Termoandes',
   },
   {
     namePrefix: 'alemania_',
     parser: LINE_PARSER,
     stationId: 'Alemania',
+  },
+  {
+    namePrefix: 'Tunal.txt',
+    parser: SINGLE_FILE,
+    stationId: 'Tunal',
+  },
+  {
+    namePrefix: 'cabra.txt',
+    parser: SINGLE_FILE,
+    stationId: 'CabraCorral',
   },
 ];
 
