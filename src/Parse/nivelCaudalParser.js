@@ -11,10 +11,10 @@ export const nivelCaudalParser = (content, stationId) => {
   const result = [];
   for (let line of lines) {
     if (line.length === 0) continue;
-    const lineParts = line.split(COMMA_SEPARATOR);
-    const dimension = lineParts[0].split(DOUBLE_QUOTE)[1];
-    const value = lineParts[1].split(DOUBLE_QUOTE)[1];
-    const dateString = lineParts[2].split(DOUBLE_QUOTE)[1];
+    const lineParts = line.split(DOUBLE_QUOTE);
+    const dimension = lineParts[1];
+    const value = lineParts[3].replace(COMMA_SEPARATOR, '.');
+    const dateString = lineParts[5];
     const date = parseToISOString(dateString, DATE_FORMAT);
     const id = stationId;
     result.push(new Observation({id, dimension, value, date}));
