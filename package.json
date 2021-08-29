@@ -1,5 +1,5 @@
 {
-  "name": "hydro-backend",
+  "name": "hydro-etl-one-drive",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -8,18 +8,14 @@
     "start": "yarn build && functions-framework --target=latestData",
     "test": "jest",
     "deploy-prep": "yarn install && yarn build && yarn install --production",
-    "deploy": "gcloud functions deploy latestData --runtime nodejs10 --trigger-http --allow-unauthenticated --env-vars-file=env.yaml"
+    "deploy": "gcloud functions deploy one-drive --runtime nodejs10 --trigger-http --allow-unauthenticated"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/heraldovalenti/hydro-backend.git"
+    "url": "git+https://github.com/heraldovalenti/hydro-etl.git"
   },
   "author": "Heraldo Valenti <heraldovalenti@gmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/heraldovalenti/hydro-backend/issues"
-  },
-  "homepage": "https://github.com/heraldovalenti/hydro-backend#readme",
   "dependencies": {
     "@google-cloud/functions-framework": "^1.7.1",
     "moment": "^2.27.0"
