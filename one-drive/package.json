@@ -8,7 +8,7 @@
     "start": "yarn build && functions-framework --target=latestData",
     "test": "jest",
     "deploy-prep": "yarn install && yarn build && yarn install --production",
-    "deploy": "gcloud functions deploy one-drive --runtime nodejs10 --trigger-http --allow-unauthenticated"
+    "deploy": "gcloud functions deploy one-drive --runtime=nodejs14 --trigger-http --allow-unauthenticated --entry-point=latestData"
   },
   "repository": {
     "type": "git",
