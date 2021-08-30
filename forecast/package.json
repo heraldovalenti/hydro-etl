@@ -1,0 +1,31 @@
+{
+  "name": "hydro-etl-one-drive",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel src -d dist",
+    "start": "yarn build && functions-framework --target=forecast",
+    "test": "jest",
+    "deploy-prep": "yarn install && yarn build && yarn install --production",
+    "deploy": "gcloud functions deploy forecast --runtime=nodejs14 --trigger-http --allow-unauthenticated --entry-point=forecast"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heraldovalenti/hydro-etl.git"
+  },
+  "author": "Heraldo Valenti <heraldovalenti@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^1.7.1",
+    "axios": "^0.21.1",
+    "moment": "^2.27.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.4",
+    "@babel/preset-env": "^7.11.0",
+    "babel-jest": "^26.3.0",
+    "jest": "^26.4.0"
+  }
+}
