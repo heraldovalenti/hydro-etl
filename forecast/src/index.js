@@ -1,3 +1,4 @@
+import {normalizeForecast} from './normalize';
 import {windyForecast} from './windy';
 import {yrForecast} from './yr';
 
@@ -16,8 +17,9 @@ export const forecasts = async (_req, res) => {
 
 const callForecastProviders = async () => {
   const results = await Promise.all([yrForecast(), windyForecast()]);
-  return {
-    yr: results[0],
-    windy: results[1],
-  };
+  const forecasts = [
+    normalizeForecast('yr', results[0]),
+    normalizeForecast('windy', results[1]),
+  ];
+  return forecasts;
 };
