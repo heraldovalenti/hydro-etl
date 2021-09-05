@@ -1,5 +1,5 @@
 {
-  "name": "hydro-etl-one-drive",
+  "name": "hydro-etl-forecasts",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -7,7 +7,7 @@
     "build": "babel src -d dist",
     "start": "yarn build && functions-framework --target=forecasts",
     "test": "jest",
-    "deploy-prep": "yarn install && yarn build && yarn install --production",
+    "deploy-prep": "yarn build && rm -rf node_modules && yarn install --production",
     "deploy": "gcloud functions deploy forecasts --runtime=nodejs14 --trigger-http --allow-unauthenticated --entry-point=forecasts"
   },
   "repository": {
