@@ -5,10 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src -d dist",
-    "start": "yarn build && functions-framework --target=forecast",
+    "start": "yarn build && functions-framework --target=forecasts",
     "test": "jest",
     "deploy-prep": "yarn install && yarn build && yarn install --production",
-    "deploy": "gcloud functions deploy forecast --runtime=nodejs14 --trigger-http --allow-unauthenticated --entry-point=forecast"
+    "deploy": "gcloud functions deploy forecasts --runtime=nodejs14 --trigger-http --allow-unauthenticated --entry-point=forecasts"
   },
   "repository": {
     "type": "git",

@@ -1,11 +1,8 @@
-import {fetchForecast} from '..';
-import {parseDetailsHtml} from '../parse';
+import {yrForecast} from '..';
 
 describe('YR forecast verification', () => {
   it('fetch & parse verification', async () => {
-    const htmlContent = await fetchForecast();
-    expect(htmlContent).toBeDefined();
-    const result = parseDetailsHtml(htmlContent);
+    const result = await yrForecast();
     expect(Object.keys(result).length > 0).toBeTruthy();
     const todayKey = new Date().toISOString().substring(0, 10);
     expect(result[todayKey]).toBeDefined();

@@ -1,4 +1,4 @@
-import {fetchForecast} from '../';
+import {fetchForecast} from '../fetch';
 
 describe('windy forecast verification', () => {
   it('fetch verification', async () => {

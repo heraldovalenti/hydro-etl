@@ -1,12 +1,7 @@
-import axios from 'axios';
+import {fetchForecast} from './fetch';
+import {parseDetailsHtml} from './parse';
 
-export const fetchForecast = async () => {
-  try {
-    const response = await axios.get(
-      'https://www.yr.no/en/details/table/2-3838233/Argentina/Salta/Departamento%20Capital/Salta',
-    );
-    return response.data;
-  } catch (e) {
-    console.log('Error fetch from YR', e);
-  }
+export const yrForecast = async () => {
+  const response = await fetchForecast();
+  return parseDetailsHtml(response);
 };
