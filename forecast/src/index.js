@@ -16,10 +16,19 @@ export const forecasts = async (_req, res) => {
 };
 
 const callForecastProviders = async () => {
-  const results = await Promise.all([yrForecast(), windyForecast()]);
+  const results = await Promise.all([
+    yrForecast(),
+    windyForecast({model: 'ecm'}),
+    windyForecast({model: 'gfs'}),
+    windyForecast({model: 'ico'}),
+    windyForecast({model: 'mbl'}),
+  ]);
   const forecasts = [
     normalizeForecast('yr', results[0]),
-    normalizeForecast('windy', results[1]),
+    normalizeForecast('windy-ecm', results[1]),
+    normalizeForecast('windy-gfs', results[2]),
+    normalizeForecast('windy-ico', results[3]),
+    normalizeForecast('windy-mbl', results[4]),
   ];
   return forecasts;
 };

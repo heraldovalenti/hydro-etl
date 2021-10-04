@@ -4,9 +4,10 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
+    "clean": "rm -rf dist",
     "build": "babel src -d dist",
     "start": "yarn build && functions-framework --target=forecasts",
-    "test": "jest",
+    "test": "yarn clean && jest",
     "deploy-prep": "yarn build && rm -rf node_modules && yarn install --production",
     "deploy": "gcloud functions deploy forecasts --runtime=nodejs14 --trigger-http --allow-unauthenticated --entry-point=forecasts"
   },

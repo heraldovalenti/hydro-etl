@@ -1,9 +1,7 @@
 import axios from 'axios';
 
-export const fetchForecast = async () => {
-  const result = await axios.get(
-    'https://node.windy.com/Zm9yZWNhc3Q/aWNvbg/cG9pbnQvaWNvbi92Mi43Ly0yNC43OTAvLTY1LjQxMD9zb3VyY2U9ZGV0YWlsJnN0ZXA9MyZ0b2tlbj1leUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFlYUWlPakUyTXpBd05qVXlNekFzSW1sdVppSTZleUpwY0NJNklqRTRNUzR4TXk0eU1qTXVNalVpTENKMVlTSTZJazF2ZW1sc2JHRmNMelV1TUNBb1RXRmphVzUwYjNOb095QkpiblJsYkNCTllXTWdUMU1nV0NBeE1GOHhOVjgzS1NCQmNIQnNaVmRsWWt0cGRGd3ZOVE0zTGpNMklDaExTRlJOVEN3Z2JHbHJaU0JIWldOcmJ5a2dRMmh5YjIxbFhDODVNaTR3TGpRMU1UVXVNVFU1SUZOaFptRnlhVnd2TlRNM0xqTTJJbjBzSW1WNGNDSTZNVFl6TURJek9EQXpNSDAuSUpwcmFSSWNxMXM1MDRTY2ZpNEZHNm95R2lQcGVBRHRkQkU4bW9leE93RSZ0b2tlbjI9ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnRZV2RwWXlJNk1UUTJMQ0pwWVhRaU9qRTJNekF3TmpVeU16QXNJbVY0Y0NJNk1UWXpNREl6T0RBek1IMC5rTnBON1BfNzA1WnFCQXBzMmUtbXZtVTJiVTFtdXNjeGZBSS15NFpaUk9rJnVpZD1lZmQzYzg5ZC04ZmQzLTg2M2MtZDMyZC03OTMwYWQxYWJlMzMmc2M9NiZwcj0wJnY9MzMuMC4yJnBvYz0z',
-  );
+export const fetchForecast = async (url) => {
+  const result = await axios.get(url);
   const buff = Buffer.from(result.data, 'base64');
   const text = buff.toString('ascii');
   return text;
