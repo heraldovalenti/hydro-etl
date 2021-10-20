@@ -1,5 +1,5 @@
 import {latestFiles, retrieveFile, collectLatestData} from '../retrieve';
-describe('general verification', () => {
+describe.skip('general verification', () => {
   it('latest files simple test', async (done) => {
     const filesResponse = await latestFiles();
     // console.log(JSON.stringify(files));

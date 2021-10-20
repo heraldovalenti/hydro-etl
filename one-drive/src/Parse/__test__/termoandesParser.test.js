@@ -1,5 +1,5 @@
 import {DIMENSION_LLUVIA} from '../../Model/observation';
-import {termoandesParser} from '../termoandesParser';
+import {singleFileParser} from '../singleFileParser';
 
 const testData = `"TOA5","TERMOANDES","CR1000","18914","CR1000X.Std.04.02","CPU:TERMOANDES.CR1X","1386","Table3"
 "TIMESTAMP","RECORD","Rain_mm_Tot"
@@ -17,9 +17,9 @@ const testData = `"TOA5","TERMOANDES","CR1000","18914","CR1000X.Std.04.02","CPU:
 "2020-10-30 21:00:00",9,0
 `;
 
-describe('termoandes parser verification', () => {
-  it('basic verification', () => {
-    const result = termoandesParser(testData);
+describe('singleFile parser verification', () => {
+  it('termoandes station verification', () => {
+    const result = singleFileParser(testData, 'Termoandes');
     expect(result.length).toBe(10);
     const last = result[9];
     expect(last.id).toBe('Termoandes');
@@ -35,7 +35,7 @@ describe('termoandes parser verification', () => {
   });
 
   it('limit verification', () => {
-    const result = termoandesParser(testData, 'Termoandess', 5);
+    const result = singleFileParser(testData, 'Termoandess', 5);
     expect(result.length).toBe(5);
     const last = result[4];
     expect(last.id).toBe('Termoandess');

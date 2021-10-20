@@ -6,8 +6,8 @@
   "scripts": {
     "build": "babel src -d dist",
     "start": "yarn build && functions-framework --target=latestData",
-    "test": "jest",
-    "deploy-prep": "yarn build && rm -rf node_modules && yarn install --production",
+    "test": "rm -rf dist && jest",
+    "deploy-prep": "yarn test && yarn build && rm -rf node_modules && yarn install --production",
     "deploy": "gcloud functions deploy one-drive --runtime=nodejs14 --trigger-http --allow-unauthenticated --entry-point=latestData"
   },
   "repository": {
