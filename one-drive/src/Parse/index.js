@@ -1,6 +1,6 @@
 import {lineParser} from './lineParser';
 import {nivelCaudalParser} from './nivelCaudalParser';
-import {nivelCabralParser} from './nivelCabralParser';
+import {nivelCabraParser} from './nivelCabraParser';
 import {singleFileParser} from './singleFileParser';
 
 const LINE_PARSER = 'LINE_PARSER';
@@ -11,7 +11,7 @@ const SINGLE_FILE = 'SINGLE_FILE';
 const mappings = {
   [LINE_PARSER]: lineParser,
   [NIVEL_CAUDAL]: nivelCaudalParser,
-  [NIVEL_CABRAL]: nivelCabralParser,
+  [NIVEL_CABRAL]: nivelCabraParser,
   [SINGLE_FILE]: singleFileParser,
 };
 

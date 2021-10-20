@@ -24,17 +24,17 @@ const NAME_DIMENSION_MAP = {
   [PBLANCA_NIVEL]: DIMENSION_NIVEL,
 };
 
-export const nivelCabralParser = (content) => {
+export const nivelCabraParser = (content) => {
   const lines = content.split(LINE_SEPARATOR);
   const result = [];
   for (let line of lines) {
     if (line.length === 0) continue;
-    const lineParts = line.split(COMMA_SEPARATOR);
-    const name = lineParts[0].split(DOUBLE_QUOTE)[1];
+    const lineParts = line.split(DOUBLE_QUOTE);
+    const name = lineParts[1];
     const id = NAME_ID_MAP[name];
     if (!id) continue;
-    const value = lineParts[1].split(DOUBLE_QUOTE)[1];
-    const dateString = lineParts[2].split(DOUBLE_QUOTE)[1];
+    const value = lineParts[3].replace(COMMA_SEPARATOR, '.');
+    const dateString = lineParts[5];
     const date = parseToISOString(dateString, DATE_FORMAT);
     const dimension = NAME_DIMENSION_MAP[name];
     const observation = new Observation({id, dimension, value, date});
