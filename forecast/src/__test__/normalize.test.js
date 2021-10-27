@@ -11,16 +11,25 @@ describe('normalize forecast verification', () => {
     },
   };
   it('should flatten all details', () => {
+    const CITY_1 = 'city1';
     const PROVIDER_1 = 'provider1';
     const PROVIDER_2 = 'provider2';
-    const p1Result = normalizeForecast(PROVIDER_1, forecastsMock[PROVIDER_1]);
+    const p1Result = normalizeForecast(
+      CITY_1,
+      PROVIDER_1,
+      forecastsMock[PROVIDER_1],
+    );
     expect(p1Result.provider).toBe(PROVIDER_1);
     expect(p1Result.details).toHaveLength(5);
     expect(p1Result.details[0].time).toBe('2021-09-05T17:00:00.000Z');
     expect(p1Result.details[0].value).toBe('0.1');
     expect(p1Result.details[1].time).toBe('2021-09-05T18:00:00.000Z');
     expect(p1Result.details[1].value).toBe('0.2');
-    const p2Result = normalizeForecast(PROVIDER_2, forecastsMock[PROVIDER_2]);
+    const p2Result = normalizeForecast(
+      CITY_1,
+      PROVIDER_2,
+      forecastsMock[PROVIDER_2],
+    );
     expect(p2Result.provider).toBe(PROVIDER_2);
     expect(p2Result.details).toHaveLength(3);
   });

@@ -1,6 +1,6 @@
 import {parseToISOString} from './util/date';
 
-export const normalizeForecast = (provider, forecast) => {
+export const normalizeForecast = (city, provider, forecast) => {
   const DATE_FORMAT = `YYYY-MM-DD HH:mm`;
   const details = [];
   for (let dayKey in forecast) {
@@ -13,6 +13,7 @@ export const normalizeForecast = (provider, forecast) => {
     }
   }
   return {
+    city,
     provider,
     details,
   };

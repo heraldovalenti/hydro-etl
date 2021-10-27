@@ -1,10 +1,10 @@
 import axios from 'axios';
+import {YR_URLS} from '../config';
 
-export const fetchForecast = async () => {
+export const fetchForecast = async (city) => {
   try {
-    const response = await axios.get(
-      'https://www.yr.no/en/details/table/2-3838233/Argentina/Salta/Departamento%20Capital/Salta',
-    );
+    const url = YR_URLS[city];
+    const response = await axios.get(url);
     return response.data;
   } catch (e) {
     console.log('Error fetch from YR', e);
