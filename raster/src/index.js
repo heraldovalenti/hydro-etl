@@ -35,6 +35,10 @@ const apis = {
   ['/all']: allData,
 };
 const rasters = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Methods', 'GET');
+  res.set('Access-Control-Allow-Headers', 'Authorization');
+
   const {path, query} = req;
   const api = apis[path];
   if (!api) {
