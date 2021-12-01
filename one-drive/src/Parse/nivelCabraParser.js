@@ -1,9 +1,9 @@
-import Observation, {
+const {
+  Observation,
   DIMENSION_NIVEL,
   DIMENSION_CAUDAL,
-} from '../Model/observation';
-import {parseToISOString} from '../util/date';
-
+} = require('../Model/observation');
+const {parseToISOString} = require('../util/date');
 const LINE_SEPARATOR = `\n`;
 const COMMA_SEPARATOR = `,`;
 const DOUBLE_QUOTE = `"`;
@@ -24,7 +24,7 @@ const NAME_DIMENSION_MAP = {
   [PBLANCA_NIVEL]: DIMENSION_NIVEL,
 };
 
-export const nivelCabraParser = (content) => {
+const nivelCabraParser = (content) => {
   const lines = content.split(LINE_SEPARATOR);
   const result = [];
   for (let line of lines) {
@@ -44,3 +44,5 @@ export const nivelCabraParser = (content) => {
   }
   return result;
 };
+
+module.exports = {nivelCabraParser};

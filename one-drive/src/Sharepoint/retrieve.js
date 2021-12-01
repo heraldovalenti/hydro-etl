@@ -1,4 +1,4 @@
-import https from 'https';
+const https = require('https');
 
 const SHAREPOINT_URL = 'aescloud-my.sharepoint.com';
 
@@ -43,7 +43,7 @@ const retrieveFileOptions = (authToken) => {
   };
 };
 
-export const latestFiles = async (authToken) => {
+const latestFiles = async (authToken) => {
   return new Promise((resolve, reject) => {
     const req = https.request(latestFilesOptions(authToken), (res) => {
       // console.log(`statusCode: ${res.statusCode}`);
@@ -82,7 +82,7 @@ export const latestFiles = async (authToken) => {
   });
 };
 
-export const retrieveFile = async (authToken, fileRef) => {
+const retrieveFile = async (authToken, fileRef) => {
   return new Promise((resolve, reject) => {
     const requestOptions = {...retrieveFileOptions(authToken), path: fileRef};
     const req = https.request(requestOptions, (res) => {
@@ -119,7 +119,7 @@ export const retrieveFile = async (authToken, fileRef) => {
   });
 };
 
-export const latestFilesNonEmpty = async (authToken) => {
+const latestFilesNonEmpty = async (authToken) => {
   const filesResponse = await latestFiles(authToken);
   const files = filesResponse['Row'];
   const filesDetails = files.map((fileEntry) => {
@@ -134,7 +134,7 @@ export const latestFilesNonEmpty = async (authToken) => {
   return filesWithData;
 };
 
-export const collectLatestData = async () => {
+const collectLatestData = async () => {
   const filesWithData = await latestFilesNonEmpty();
   const promises = filesWithData.map((fileEntry) =>
     retrieveFile(fileEntry.fileRef),
@@ -146,4 +146,11 @@ ${fileResult}`,
     '',
   );
   return result;
+};
+
+module.exports = {
+  collectLatestData,
+  latestFilesNonEmpty,
+  retrieveFile,
+  latestFiles,
 };

@@ -1,10 +1,11 @@
-import Observation, {
+const {
   DIMENSION_BATERIA,
   DIMENSION_LLUVIA,
   DIMENSION_NIVEL,
   DIMENSION_ALARMA,
-} from '../Model/observation';
-import {parseToISOString} from '../util/date';
+  Observation,
+} = require('../Model/observation');
+const {parseToISOString} = require('../util/date');
 
 const DATE_FORMAT = `YYYY-MM-DD hh:mm:ss.SSS`;
 const BATTERY = `Bater�a`;
@@ -20,7 +21,7 @@ const DIMENSION_MAP = {
   [ALARM]: DIMENSION_ALARMA,
 };
 
-export const lineParser = (content, stationId) => {
+const lineParser = (content, stationId) => {
   const lines = content.split(LINE_SEPARATOR);
   const result = [];
   for (let line of lines) {
@@ -42,3 +43,5 @@ export const lineParser = (content, stationId) => {
   }
   return result;
 };
+
+module.exports = {lineParser};

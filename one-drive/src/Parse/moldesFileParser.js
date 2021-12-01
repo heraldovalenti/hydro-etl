@@ -1,16 +1,12 @@
-import Observation, {DIMENSION_LLUVIA} from '../Model/observation';
-import {parseToISOString} from '../util/date';
+const {Observation, DIMENSION_LLUVIA} = require('../Model/observation');
+const {parseToISOString} = require('../util/date');
 
 const LINE_SEPARATOR = `\n`;
 const SPACE_SEPARATOR = ` `;
 const DATE_FORMAT = `D/MM/YY hh:mm`; // 24/11/21 22:30, 1/12/21 1:00
 
 const RESULT_LIMIT = 2 * 24; // 1 day (2 observations per hour)
-export const moldesFileParser = (
-  content,
-  stationId,
-  resultLimit = RESULT_LIMIT,
-) => {
+const moldesFileParser = (content, stationId, resultLimit = RESULT_LIMIT) => {
   const lines = content.split(LINE_SEPARATOR);
   const observations = [];
   for (let i = lines.length - 1; i >= 3; i--) {
@@ -40,3 +36,5 @@ export const moldesFileParser = (
   );
   return result;
 };
+
+module.exports = {moldesFileParser};

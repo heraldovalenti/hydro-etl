@@ -1,6 +1,8 @@
-import moment from 'moment';
+const moment = require('moment');
 
-export const parseToISOString = (dateString, DATE_FORMAT) => {
+const parseToISOString = (dateString, DATE_FORMAT) => {
   const date = moment.utc(dateString, DATE_FORMAT).add(3, 'h');
   return date.toISOString();
 };
+
+module.exports = {parseToISOString};

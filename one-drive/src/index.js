@@ -1,8 +1,8 @@
-import {latestFiles, retrieveFile} from './Sharepoint';
-import {parseFile, configsForFile} from './Parse';
-import {SHAREPOINT_AUTH_COOKIE} from './config';
+const {latestFiles, retrieveFile} = require('./Sharepoint');
+const {parseFile, configsForFile} = require('./Parse');
+const {SHAREPOINT_AUTH_COOKIE} = require('./config');
 
-exports.latestData = async (req, res) => {
+const latestData = async (req, res) => {
   const getAuthToken = (authToken = SHAREPOINT_AUTH_COOKIE) => authToken;
   const authToken = getAuthToken(req.query.authToken);
   const getShowRawData = (showRawData = false) => showRawData == 'true';
@@ -36,7 +36,9 @@ exports.latestData = async (req, res) => {
     res.send(JSON.stringify(filesWithDataAndConfig));
   } catch (e) {
     const statusCode = e.statusCode ? e.statusCode : 500;
-    console.warn(`Error fetching latest data: ${JSON.stringify(e)}`);
-    res.status(statusCode).send(JSON.stringify(e));
+    console.warn(`Error fetching latest data: ${e.toString()}`);
+    res.status(statusCode).send(e.toString());
   }
 };
+
+module.exports = {latestData};

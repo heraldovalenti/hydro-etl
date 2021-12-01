@@ -1,3 +1,3 @@
-import {retrieveFile, latestFilesNonEmpty} from './retrieve';
+const {retrieveFile, latestFilesNonEmpty} = require('./retrieve');
 
-export {retrieveFile, latestFilesNonEmpty as latestFiles};
+module.exports = {retrieveFile, latestFiles: latestFilesNonEmpty};

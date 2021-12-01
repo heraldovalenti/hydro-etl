@@ -2,12 +2,11 @@
   "name": "hydro-etl-one-drive",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "build": "babel src -d dist",
-    "start": "yarn build && functions-framework --target=latestData --port=8082",
-    "test": "rm -rf dist && jest",
-    "deploy-prep": "yarn test && yarn build && rm -rf node_modules && yarn install --production",
+    "start": "functions-framework --target=latestData --port=8082",
+    "test": "jest",
+    "deploy-prep": "yarn test && rm -rf node_modules && yarn install --production",
     "deploy": "gcloud functions deploy one-drive --runtime=nodejs14 --trigger-http --allow-unauthenticated --entry-point=latestData"
   },
   "repository": {
@@ -17,7 +16,7 @@
   "author": "Heraldo Valenti <heraldovalenti@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@google-cloud/functions-framework": "^1.7.1",
+    "@google-cloud/functions-framework": "^2.0.0",
     "moment": "^2.27.0"
   },
   "devDependencies": {

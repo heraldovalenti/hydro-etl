@@ -1,5 +1,5 @@
-import Observation, {DIMENSION_LLUVIA} from '../Model/observation';
-import {parseToISOString} from '../util/date';
+const {Observation, DIMENSION_LLUVIA} = require('../Model/observation');
+const {parseToISOString} = require('../util/date');
 
 const LINE_SEPARATOR = `\n`;
 const COMMA_SEPARATOR = `,`;
@@ -7,11 +7,7 @@ const DOUBLE_QUOTE = `"`;
 const DATE_FORMAT = `YYYY-MM-DD hh:mm:ss`;
 
 const RESULT_LIMIT = 2 * 24; // 1 day (2 observations per hour)
-export const singleFileParser = (
-  content,
-  stationId,
-  resultLimit = RESULT_LIMIT,
-) => {
+const singleFileParser = (content, stationId, resultLimit = RESULT_LIMIT) => {
   const lines = content.split(LINE_SEPARATOR);
   const observations = [];
   for (let i = 4; i < lines.length; i++) {
@@ -43,3 +39,5 @@ export const singleFileParser = (
   );
   return result;
 };
+
+module.exports = {singleFileParser};

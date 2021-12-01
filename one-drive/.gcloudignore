@@ -13,12 +13,10 @@
 .git
 .gitignore
 
-# node_modules
+node_modules
 # #!include:.gitignore
 
 .vscode/
 .prettierrc.js
-.babel.config.js
-.jest.config.js
-yarn.lock
-src
+babel.config.js
+jest.config.js

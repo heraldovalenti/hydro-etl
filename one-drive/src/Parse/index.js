@@ -1,8 +1,8 @@
-import {lineParser} from './lineParser';
-import {nivelCaudalParser} from './nivelCaudalParser';
-import {nivelCabraParser} from './nivelCabraParser';
-import {singleFileParser} from './singleFileParser';
-import {moldesFileParser} from './moldesFileParser';
+const {lineParser} = require('./lineParser');
+const {nivelCaudalParser} = require('./nivelCaudalParser');
+const {nivelCabraParser} = require('./nivelCabraParser');
+const {singleFileParser} = require('./singleFileParser');
+const {moldesFileParser} = require('./moldesFileParser');
 
 const LINE_PARSER = 'LINE_PARSER';
 const NIVEL_CAUDAL = 'NIVEL_CAUDAL';
@@ -85,7 +85,7 @@ const FILE_PARSERS = [
   },
 ];
 
-export const configsForFile = (fileEntry) => {
+const configsForFile = (fileEntry) => {
   const fileConfig = FILE_PARSERS.filter((config) => {
     const result = fileEntry.fileName.startsWith(config.namePrefix);
     return result;
@@ -93,7 +93,7 @@ export const configsForFile = (fileEntry) => {
   return fileConfig;
 };
 
-export const parseFile = (fileEntry) => {
+const parseFile = (fileEntry) => {
   const fileConfig = configsForFile(fileEntry);
   if (fileConfig.length == 0) {
     console.warn(
@@ -108,3 +108,5 @@ export const parseFile = (fileEntry) => {
   const data = parser(fileEntry.rawData, stationId);
   return data;
 };
+
+module.exports = {configsForFile, parseFile};

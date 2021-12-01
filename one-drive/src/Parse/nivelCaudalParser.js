@@ -1,12 +1,12 @@
-import Observation from '../Model/observation';
-import {parseToISOString} from '../util/date';
+const {Observation} = require('../Model/observation');
+const {parseToISOString} = require('../util/date');
 
 const LINE_SEPARATOR = `\n`;
 const COMMA_SEPARATOR = `,`;
 const DOUBLE_QUOTE = `"`;
 const DATE_FORMAT = `DD/MM/YY hh:mm:ss`;
 
-export const nivelCaudalParser = (content, stationId) => {
+const nivelCaudalParser = (content, stationId) => {
   const lines = content.split(LINE_SEPARATOR);
   const result = [];
   for (let line of lines) {
@@ -21,3 +21,5 @@ export const nivelCaudalParser = (content, stationId) => {
   }
   return result;
 };
+
+module.exports = {nivelCaudalParser};
