@@ -18,7 +18,7 @@ const testData = `"TOA5","TERMOANDES","CR1000","18914","CR1000X.Std.04.02","CPU:
 `;
 
 describe('singleFile parser verification', () => {
-  it('termoandes station verification', () => {
+  it('singleFile station verification', () => {
     const result = singleFileParser(testData, 'Termoandes');
     expect(result.length).toBe(10);
     const last = result[9];

@@ -2,17 +2,20 @@ import {lineParser} from './lineParser';
 import {nivelCaudalParser} from './nivelCaudalParser';
 import {nivelCabraParser} from './nivelCabraParser';
 import {singleFileParser} from './singleFileParser';
+import {moldesFileParser} from './moldesFileParser';
 
 const LINE_PARSER = 'LINE_PARSER';
 const NIVEL_CAUDAL = 'NIVEL_CAUDAL';
 const NIVEL_CABRAL = 'NIVEL_CABRAL';
 const SINGLE_FILE = 'SINGLE_FILE';
+const MOLDES_FILE = 'MOLDES_FILE';
 
 const mappings = {
   [LINE_PARSER]: lineParser,
   [NIVEL_CAUDAL]: nivelCaudalParser,
   [NIVEL_CABRAL]: nivelCabraParser,
   [SINGLE_FILE]: singleFileParser,
+  [MOLDES_FILE]: moldesFileParser,
 };
 
 const FILE_PARSERS = [
@@ -74,6 +77,11 @@ const FILE_PARSERS = [
     namePrefix: 'cabra.txt',
     parser: SINGLE_FILE,
     stationId: 'CabraCorral',
+  },
+  {
+    namePrefix: 'EscuelaMoldes.txt',
+    parser: MOLDES_FILE,
+    stationId: 'EscuelaMoldes',
   },
 ];
 
