@@ -23,7 +23,9 @@ const propsFromFile = async (arrayBuffer) => {
   const tiff = await fromArrayBuffer(arrayBuffer);
   const rasters = await tiff.readRasters();
   const [floatArrayMap] = rasters;
-  const floatArray = Object.keys(floatArrayMap).map((k) => floatArrayMap[k]);
+  const floatArray = Object.keys(floatArrayMap).map((k) =>
+    Math.trunc(floatArrayMap[k]),
+  );
   const image = await tiff.getImage();
   const BitsPerSample = image.getBitsPerSample();
   const ModelTiepoint = image.getTiePoints();
@@ -40,6 +42,7 @@ const propsFromFile = async (arrayBuffer) => {
     TileLength,
     Height,
     Width,
+    Data: floatArray,
     floatArray,
   };
   return result;

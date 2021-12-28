@@ -7,12 +7,15 @@ const getFileData = async (ftpClient, {fileName}) => {
   const result = propsFromFile(arrayBuffer);
   return result;
 };
-const listFiles = async (ftpClient) => {
+const listFiles = async (ftpClient, {results = 3}) => {
   const fileList = await ftpClient.listFiles();
   const tiffFileList = fileList.filter((fileDescriptor) =>
     fileDescriptor.name.includes('prcpWRF_dia'),
   );
-  return tiffFileList;
+  tiffFileList.sort(
+    (f1, f2) => new Date(f2.date).getTime() - new Date(f1.date).getTime(),
+  );
+  return tiffFileList.slice(0, results);
 };
 const allData = async (ftpClient, {from = 0, to = 5}) => {
   const fileList = await listFiles(ftpClient);
