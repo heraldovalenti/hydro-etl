@@ -1,5 +1,5 @@
 import {DIMENSION_LLUVIA} from '../../Model/observation';
-import {moldesFileParser} from '../moldesFileParser';
+import {singleFileParserV2} from '../singleFileParserV2';
 
 const testData = `                  Temp     Hi    Low   Out    Dew  Wind  Wind   Wind    Hi    Hi   Wind   Heat    THW   THSW                Rain  Solar   Solar Hi Solar   UV    UV    Hi     Heat    Cool    In     In    In     In     In   In Air          Wind  Wind    ISS   Arc.
 Date    Time     Out   Temp   Temp   Hum    Pt. Speed   Dir    Run Speed   Dir  Chill  Index  Index  Index   Bar    Rain  Rate   Rad.  Energy    Rad.  Index  Dose   UV     D-D     D-D    Temp   Hum    Dew   Heat    EMC Density     ET   Samp   Tx   Recept  Int.
@@ -15,9 +15,9 @@ Date    Time     Out   Temp   Temp   Hum    Pt. Speed   Dir    Run Speed   Dir  
 
 const RESULT_COUNT = 7;
 const STATION_ID = 'EscuelaMoldes';
-describe('moldes file parser verification', () => {
+describe('singleFileParserV2 file parser verification', () => {
   it('moldes station verification', () => {
-    const result = moldesFileParser(testData, STATION_ID);
+    const result = singleFileParserV2(testData, STATION_ID);
     expect(result.length).toBe(RESULT_COUNT);
     const first = result[0];
 
@@ -40,7 +40,7 @@ describe('moldes file parser verification', () => {
   });
 
   it('limit verification', () => {
-    const result = moldesFileParser(testData, 'Termoandess', 5);
+    const result = singleFileParserV2(testData, 'Termoandess', 5);
     expect(result.length).toBe(5);
   });
 });
