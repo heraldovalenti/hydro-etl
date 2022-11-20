@@ -36,7 +36,7 @@ const latestData = async (req, res) => {
     res.send(JSON.stringify(filesWithDataAndConfig));
   } catch (e) {
     const statusCode = e.statusCode ? e.statusCode : 500;
-    console.warn(`Error fetching latest data: ${e.toString()}`);
+    console.warn(`Error fetching latest data: ${JSON.stringify(e)}`);
     res.status(statusCode).send(e.toString());
   }
 };
