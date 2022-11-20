@@ -6,7 +6,7 @@ const SPACE_SEPARATOR = ` `;
 const DATE_FORMAT = `D/MM/YY hh:mm`; // 24/11/21 22:30, 1/12/21 1:00
 
 const RESULT_LIMIT = 2 * 24; // 1 day (2 observations per hour)
-const moldesFileParser = (content, stationId, resultLimit = RESULT_LIMIT) => {
+const singleFileParserV2 = (content, stationId, resultLimit = RESULT_LIMIT) => {
   const lines = content.split(LINE_SEPARATOR);
   const observations = [];
   for (let i = lines.length - 1; i >= 3; i--) {
@@ -32,9 +32,9 @@ const moldesFileParser = (content, stationId, resultLimit = RESULT_LIMIT) => {
       ? observations.slice(0, resultLimit)
       : observations;
   console.log(
-    `moldesFileParser for ${stationId} results=${observations.length}, truncated=${result.length}`,
+    `fileParserV2 for ${stationId} results=${observations.length}, truncated=${result.length}`,
   );
   return result;
 };
 
-module.exports = {moldesFileParser};
+module.exports = {singleFileParserV2};

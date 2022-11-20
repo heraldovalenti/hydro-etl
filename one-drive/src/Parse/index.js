@@ -2,20 +2,20 @@ const {lineParser} = require('./lineParser');
 const {nivelCaudalParser} = require('./nivelCaudalParser');
 const {nivelCabraParser} = require('./nivelCabraParser');
 const {singleFileParser} = require('./singleFileParser');
-const {moldesFileParser} = require('./moldesFileParser');
+const {singleFileParserV2} = require('./singleFileParserV2');
 
 const LINE_PARSER = 'LINE_PARSER';
 const NIVEL_CAUDAL = 'NIVEL_CAUDAL';
 const NIVEL_CABRAL = 'NIVEL_CABRAL';
 const SINGLE_FILE = 'SINGLE_FILE';
-const MOLDES_FILE = 'MOLDES_FILE';
+const SINGLE_FILE_V2 = 'SINGLE_FILE_V2';
 
 const mappings = {
   [LINE_PARSER]: lineParser,
   [NIVEL_CAUDAL]: nivelCaudalParser,
   [NIVEL_CABRAL]: nivelCabraParser,
   [SINGLE_FILE]: singleFileParser,
-  [MOLDES_FILE]: moldesFileParser,
+  [SINGLE_FILE_V2]: singleFileParserV2,
 };
 
 const FILE_PARSERS = [
@@ -80,8 +80,18 @@ const FILE_PARSERS = [
   },
   {
     namePrefix: 'EscuelaMoldes.txt',
-    parser: MOLDES_FILE,
+    parser: SINGLE_FILE_V2,
     stationId: 'EscuelaMoldes',
+  },
+  {
+    namePrefix: 'Carril.txt',
+    parser: SINGLE_FILE_V2,
+    stationId: 'Carril',
+  },
+  {
+    namePrefix: 'Metan.txt',
+    parser: SINGLE_FILE_V2,
+    stationId: 'Metan',
   },
 ];
 
