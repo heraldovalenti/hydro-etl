@@ -35,7 +35,7 @@ describe('singleFile parser verification', () => {
   });
 
   it('limit verification', () => {
-    const result = singleFileParser(testData, 'Termoandess', 5);
+    const result = singleFileParser(testData, 'Termoandess', {resultLimit: 5});
     expect(result.length).toBe(5);
     const last = result[4];
     expect(last.id).toBe('Termoandess');

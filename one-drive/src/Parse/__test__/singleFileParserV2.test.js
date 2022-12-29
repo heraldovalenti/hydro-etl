@@ -17,7 +17,7 @@ const RESULT_COUNT = 7;
 const STATION_ID = 'EscuelaMoldes';
 describe('singleFileParserV2 file parser verification', () => {
   it('moldes station verification', () => {
-    const result = singleFileParserV2(testData, STATION_ID);
+    const result = singleFileParserV2(testData, STATION_ID, {rainIndex: 17});
     expect(result.length).toBe(RESULT_COUNT);
     const first = result[0];
 
@@ -40,7 +40,9 @@ describe('singleFileParserV2 file parser verification', () => {
   });
 
   it('limit verification', () => {
-    const result = singleFileParserV2(testData, 'Termoandess', 5);
+    const result = singleFileParserV2(testData, 'Termoandess', {
+      resultLimit: 5,
+    });
     expect(result.length).toBe(5);
   });
 });

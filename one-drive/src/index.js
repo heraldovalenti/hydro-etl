@@ -1,10 +1,8 @@
 const {latestFiles, retrieveFile} = require('./Sharepoint');
 const {parseFile, configsForFile} = require('./Parse');
-const {SHAREPOINT_AUTH_COOKIE} = require('./config');
 
 const latestData = async (req, res) => {
-  const getAuthToken = (authToken = SHAREPOINT_AUTH_COOKIE) => authToken;
-  const authToken = getAuthToken(req.query.authToken);
+  const authToken = req.query.authToken;
   const getShowRawData = (showRawData = false) => showRawData == 'true';
   const showRawData = getShowRawData(req.query.showRawData);
   res.set('Access-Control-Allow-Origin', '*');
@@ -37,7 +35,7 @@ const latestData = async (req, res) => {
   } catch (e) {
     const statusCode = e.statusCode ? e.statusCode : 500;
     console.warn(`Error fetching latest data: ${JSON.stringify(e)}`);
-    res.status(statusCode).send(e.toString());
+    res.status(statusCode).send(JSON.stringify(e));
   }
 };
 

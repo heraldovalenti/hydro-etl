@@ -7,7 +7,11 @@ const DOUBLE_QUOTE = `"`;
 const DATE_FORMAT = `YYYY-MM-DD hh:mm:ss`;
 
 const RESULT_LIMIT = 2 * 24; // 1 day (2 observations per hour)
-const singleFileParser = (content, stationId, resultLimit = RESULT_LIMIT) => {
+const singleFileParser = (
+  content,
+  stationId,
+  {resultLimit = RESULT_LIMIT} = {},
+) => {
   const lines = content.split(LINE_SEPARATOR);
   const observations = [];
   for (let i = 4; i < lines.length; i++) {

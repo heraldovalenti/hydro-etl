@@ -82,16 +82,25 @@ const FILE_PARSERS = [
     namePrefix: 'EscuelaMoldes.txt',
     parser: SINGLE_FILE_V2,
     stationId: 'EscuelaMoldes',
+    params: {
+      rainIndex: 17,
+    },
   },
   {
     namePrefix: 'Carril.txt',
     parser: SINGLE_FILE_V2,
     stationId: 'Carril',
+    params: {
+      rainIndex: 16,
+    },
   },
   {
     namePrefix: 'Metan.txt',
     parser: SINGLE_FILE_V2,
     stationId: 'Metan',
+    params: {
+      rainIndex: 16,
+    },
   },
 ];
 
@@ -114,8 +123,9 @@ const parseFile = (fileEntry) => {
   console.log(`parsing ${fileEntry.fileName}`);
   const parserName = fileConfig[0].parser;
   const stationId = fileConfig[0].stationId;
+  const params = fileConfig[0].params;
   const parser = mappings[parserName];
-  const data = parser(fileEntry.rawData, stationId);
+  const data = parser.call({}, fileEntry.rawData, stationId, params);
   return data;
 };
 
