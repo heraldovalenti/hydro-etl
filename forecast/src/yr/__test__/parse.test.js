@@ -12,7 +12,7 @@ describe('YR parse verification', () => {
     });
     const result = parseDetailsHtml(htmlContent);
     expect(Object.keys(result).length).toBe(9);
-    expect(result['2021-08-30'].length).toBe(15);
-    expect(result['2021-08-31'].length).toBe(24);
+    expect(result['2023-02-17'].length).toBe(15);
+    expect(result['2023-02-18'].length).toBe(24);
   });
 });

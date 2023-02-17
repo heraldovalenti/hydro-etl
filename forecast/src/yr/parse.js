@@ -15,13 +15,13 @@ export const parseDetailsHtml = (html) => {
       .querySelector('tbody')
       .querySelectorAll('tr');
     const dayEntries = [];
-    tableRows.forEach((row) =>
+    tableRows.forEach((row) => {
+      const key = row.querySelector('time').getAttribute('datetime');
+      const value = row.querySelector('.min-max-precipitation').text;
       dayEntries.push({
-        [row.querySelector('time').getAttribute('datetime')]: row.querySelector(
-          '.precipitation__value',
-        ).text,
-      }),
-    );
+        [key]: value,
+      });
+    });
     result[date] = dayEntries;
   }
   return result;
