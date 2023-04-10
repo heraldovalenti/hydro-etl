@@ -2,21 +2,21 @@ const {latestFiles, retrieveFile} = require('./Sharepoint');
 const {parseFile, configsForFile} = require('./Parse');
 
 const latestData = async (req, res) => {
-  const authToken = req.query.authToken;
+  const {authTokens} = req.body;
   const getShowRawData = (showRawData = false) => showRawData == 'true';
   const showRawData = getShowRawData(req.query.showRawData);
   res.set('Access-Control-Allow-Origin', '*');
-  if (!authToken) {
-    res.status(403).send({message: 'authToken is required'});
+  if (!authTokens) {
+    res.status(403).send({message: 'authTokens are required'});
     return;
   }
   try {
-    const filesWithData = await latestFiles(authToken);
+    const filesWithData = await latestFiles(authTokens);
     const filesWithDataAndConfig = filesWithData.filter((config) => {
       return configsForFile(config).length > 0;
     });
     const promises = filesWithDataAndConfig.map((fileEntry) =>
-      retrieveFile(authToken, fileEntry.fileRef),
+      retrieveFile(authTokens, fileEntry.fileRef),
     );
     const promisesResults = await Promise.all(promises);
     for (let i = 0; i < filesWithDataAndConfig.length; i++) {
@@ -35,6 +35,7 @@ const latestData = async (req, res) => {
   } catch (e) {
     const statusCode = e.statusCode ? e.statusCode : 500;
     console.warn(`Error fetching latest data: ${JSON.stringify(e)}`);
+    res.set('Content-Type', 'application/json');
     res.status(statusCode).send(JSON.stringify(e));
   }
 };

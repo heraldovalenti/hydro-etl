@@ -2,9 +2,13 @@ const https = require('https');
 
 const SHAREPOINT_URL = 'aescloud-my.sharepoint.com';
 
-const baseHeaders = (authToken) => {
+const baseHeaders = (authTokens) => {
+  const cookies = Object.keys(authTokens).reduce(
+    (result, key) => `${result}${key}=${authTokens[key]};`,
+    '',
+  );
   return {
-    Cookie: `FedAuth=${authToken}`,
+    Cookie: cookies,
   };
 };
 const baseOptions = {
@@ -12,40 +16,40 @@ const baseOptions = {
   port: 443,
 };
 // retrieve latest files
-const latestFilesHeaders = (authToken) => {
+const latestFilesHeaders = (authTokens) => {
   return {
-    ...baseHeaders(authToken),
+    ...baseHeaders(authTokens),
     'Content-Length': 0,
     Accept: 'application/json',
   };
 };
-const latestFilesOptions = (authToken) => {
+const latestFilesOptions = (authTokens) => {
   return {
     ...baseOptions,
     path: '/personal/edgardo_mendez_aes_com/_api/web/GetListUsingPath(DecodedUrl=@a1)/RenderListDataAsStream?@a1=%27%2Fpersonal%2Fedgardo%5Fmendez%5Faes%5Fcom%2FDocuments%27&RootFolder=%2Fpersonal%2Fedgardo%5Fmendez%5Faes%5Fcom%2FDocuments%2FDatosCCO&SortField=Modified&SortDir=Desc',
     method: 'POST',
-    headers: latestFilesHeaders(authToken),
+    headers: latestFilesHeaders(authTokens),
   };
 };
 
 // retrieve single file
-const retrieveFileHeaders = (authToken) => {
+const retrieveFileHeaders = (authTokens) => {
   return {
-    ...baseHeaders(authToken),
+    ...baseHeaders(authTokens),
   };
 };
 
-const retrieveFileOptions = (authToken) => {
+const retrieveFileOptions = (authTokens) => {
   return {
     ...baseOptions,
     method: 'GET',
-    headers: retrieveFileHeaders(authToken),
+    headers: retrieveFileHeaders(authTokens),
   };
 };
 
-const latestFiles = async (authToken) => {
+const latestFiles = async (authTokens) => {
   return new Promise((resolve, reject) => {
-    const req = https.request(latestFilesOptions(authToken), (res) => {
+    const req = https.request(latestFilesOptions(authTokens), (res) => {
       // console.log(`statusCode: ${res.statusCode}`);
       // console.log(`statusMessage: ${res.statusMessage}`);
 
@@ -82,9 +86,9 @@ const latestFiles = async (authToken) => {
   });
 };
 
-const retrieveFile = async (authToken, fileRef) => {
+const retrieveFile = async (authTokens, fileRef) => {
   return new Promise((resolve, reject) => {
-    const requestOptions = {...retrieveFileOptions(authToken), path: fileRef};
+    const requestOptions = {...retrieveFileOptions(authTokens), path: fileRef};
     const req = https.request(requestOptions, (res) => {
       // console.log(`statusCode: ${res.statusCode}`);
       // console.log(`statusMessage: ${res.statusMessage}`);
@@ -119,8 +123,8 @@ const retrieveFile = async (authToken, fileRef) => {
   });
 };
 
-const latestFilesNonEmpty = async (authToken) => {
-  const filesResponse = await latestFiles(authToken);
+const latestFilesNonEmpty = async (authTokens) => {
+  const filesResponse = await latestFiles(authTokens);
   const files = filesResponse['Row'];
   const filesDetails = files.map((fileEntry) => {
     return {
