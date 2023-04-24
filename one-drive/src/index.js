@@ -15,9 +15,10 @@ const latestData = async (req, res) => {
     return;
   }
   try {
+    res.set('Content-Type', 'application/json');
     const filesWithData = await latestFiles(authTokens);
     if (isHealthCheck) {
-      res.status(200).send();
+      res.status(200).send([]);
       return;
     }
     const filesWithDataAndConfig = filesWithData.filter((config) => {
@@ -38,12 +39,10 @@ const latestData = async (req, res) => {
         delete fileEntry.rawData;
       }
     });
-    res.set('Content-Type', 'application/json');
     res.send(JSON.stringify(filesWithDataAndConfig));
   } catch (e) {
     const statusCode = e.statusCode ? e.statusCode : 500;
     console.warn(`Error fetching latest data: ${JSON.stringify(e)}`);
-    res.set('Content-Type', 'application/json');
     res.status(statusCode).send(JSON.stringify(e));
   }
 };
