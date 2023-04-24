@@ -3,8 +3,12 @@ const {parseFile, configsForFile} = require('./Parse');
 
 const latestData = async (req, res) => {
   const {authTokens} = req.body;
-  const getShowRawData = (showRawData = false) => showRawData == 'true';
-  const showRawData = getShowRawData(req.query.showRawData);
+  const getFlag = (flag = false) => flag == 'true';
+  const isHealthCheck = getFlag(req.query.healthCheck);
+  const isShowRawData = getFlag(req.query.showRawData);
+  console.log(
+    `latestData() isHealthCheck=${isHealthCheck} isShowRawData=${isShowRawData}`,
+  );
   res.set('Access-Control-Allow-Origin', '*');
   if (!authTokens) {
     res.status(403).send({message: 'authTokens are required'});
@@ -12,6 +16,10 @@ const latestData = async (req, res) => {
   }
   try {
     const filesWithData = await latestFiles(authTokens);
+    if (isHealthCheck) {
+      res.status(200).send();
+      return;
+    }
     const filesWithDataAndConfig = filesWithData.filter((config) => {
       return configsForFile(config).length > 0;
     });
@@ -26,7 +34,7 @@ const latestData = async (req, res) => {
     }
     filesWithDataAndConfig.forEach((fileEntry) => {
       fileEntry.data = parseFile(fileEntry);
-      if (!showRawData) {
+      if (!isShowRawData) {
         delete fileEntry.rawData;
       }
     });
