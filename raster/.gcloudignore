@@ -19,6 +19,6 @@ node_modules
 .vscode/
 .prettierrc.cjs
 babel.config.js
-env.sh
+.env
 env.yaml
 jest.config.js

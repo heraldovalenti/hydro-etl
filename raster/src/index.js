@@ -1,3 +1,4 @@
+require('dotenv').config();
 const {FTPClient} = require('./ftp');
 const {propsFromFile, streamToArrayBuffer} = require('./tiff');
 
