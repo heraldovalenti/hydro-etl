@@ -26,9 +26,7 @@ const allData = async (ftpClient, {from = 0, to = 5, type = defaultType}) => {
     return new Promise(async (res, rej) => {
       let fileData = {};
       const {name: fileName} = fileDescriptor;
-      if (fileName.includes('prcpWRF_dia')) {
-        fileData = await getFileData(ftpClient, {fileName});
-      }
+      fileData = await getFileData(ftpClient, {fileName});
       res({fileDescriptor, fileData});
     });
   });
