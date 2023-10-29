@@ -19,7 +19,7 @@ const listFiles = async (ftpClient, {results = 3}) => {
   return tiffFileList.slice(0, results);
 };
 const allData = async (ftpClient, {from = 0, to = 5}) => {
-  const fileList = await listFiles(ftpClient);
+  const fileList = await listFiles(ftpClient, {});
   const resultPromises = fileList.slice(from, to).map((fileDescriptor) => {
     return new Promise(async (res, rej) => {
       let fileData = {};
@@ -49,6 +49,7 @@ const rasters = async (req, res) => {
     res.status(404).send(`No handler available for ${path}`);
     return;
   }
+  res.set('Content-Type', 'application/json');
   try {
     const ftpClient = new FTPClient(ftpConfig);
     await ftpClient.open();
@@ -57,7 +58,7 @@ const rasters = async (req, res) => {
     res.status(200).send(JSON.stringify(result));
   } catch (e) {
     console.error(e);
-    res.status(500).send(JSON.stringify(e));
+    res.status(500).send(JSON.stringify({e, path, query}));
   }
 };
 
