@@ -10,7 +10,7 @@ const getFileData = async (ftpClient, {fileName}) => {
 };
 const defaultType = 'WRF';
 const fileTypes = {WRF: 'prcpWRF_dia', SQPE: 'SQPE-OBS'};
-const listFiles = async (ftpClient, {results = 3, type = defaultType}) => {
+const listFiles = async (ftpClient, {from = 0, to = 3, type = defaultType}) => {
   const fileList = await ftpClient.listFiles();
   const tiffFileList = fileList.filter((fileDescriptor) =>
     fileDescriptor.name.includes(fileTypes[type]),
@@ -18,11 +18,14 @@ const listFiles = async (ftpClient, {results = 3, type = defaultType}) => {
   tiffFileList.sort(
     (f1, f2) => new Date(f2.date).getTime() - new Date(f1.date).getTime(),
   );
-  return tiffFileList.slice(0, results);
+  return {
+    fileList: tiffFileList.slice(from, to),
+    total: tiffFileList.length,
+  };
 };
-const allData = async (ftpClient, {from = 0, to = 5, type = defaultType}) => {
-  const fileList = await listFiles(ftpClient, {type});
-  const resultPromises = fileList.slice(from, to).map((fileDescriptor) => {
+const allData = async (ftpClient, {from = 0, to = 3, type = defaultType}) => {
+  const {fileList, total} = await listFiles(ftpClient, {type, from, to});
+  const resultPromises = fileList.map((fileDescriptor) => {
     return new Promise(async (res, rej) => {
       let fileData = {};
       const {name: fileName} = fileDescriptor;
@@ -31,7 +34,7 @@ const allData = async (ftpClient, {from = 0, to = 5, type = defaultType}) => {
     });
   });
   const result = await Promise.all(resultPromises);
-  return result;
+  return {fileList: result, total};
 };
 const apis = {
   ['/list']: listFiles,
