@@ -102,6 +102,11 @@ const FILE_PARSERS = [
       rainIndex: 16,
     },
   },
+  {
+    namePrefix: 'Viboras_',
+    parser: LINE_PARSER,
+    stationId: 'Viboras',
+  },
 ];
 
 const configsForFile = (fileEntry) => {
