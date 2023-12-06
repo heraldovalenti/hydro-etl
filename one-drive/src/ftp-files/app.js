@@ -7,9 +7,8 @@ const {parseFile} = require('../Parse');
 const app = express();
 
 app.get('/latestData', async (req, res) => {
+  const {path, query} = req;
   try {
-    const {query} = req;
-
     const ftpClient = new FTPClient(ftpConfig);
     await ftpClient.open();
     const {fileList} = await allData(ftpClient, query);
