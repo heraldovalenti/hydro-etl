@@ -39,7 +39,7 @@ const listFiles = async (
     ({name, size}) => name.endsWith('.txt') && size > 0,
   );
   txtFileList.sort(
-    (f1, f2) => new Date(f1.date).getTime() - new Date(f2.date).getTime(),
+    (f1, f2) => new Date(f2.date).getTime() - new Date(f1.date).getTime(),
   );
   return {
     fileList: txtFileList.slice(from, to),
