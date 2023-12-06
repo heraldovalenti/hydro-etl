@@ -107,6 +107,11 @@ const FILE_PARSERS = [
     parser: LINE_PARSER,
     stationId: 'Viboras',
   },
+  {
+    namePrefix: 'Maury_',
+    parser: LINE_PARSER,
+    stationId: 'Maury',
+  },
 ];
 
 const configsForFile = (fileEntry) => {
