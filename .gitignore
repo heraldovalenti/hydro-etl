@@ -3,3 +3,4 @@ node_modules/
 dist/
 raster/.env
 raster/env.yaml
+one-drive/.env

@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  api:
+    build: .
+    restart: always
+    ports:
+      - 8000:8000
+    environment:
+      FTP_HOSTNAME: $FTP_HOSTNAME
+      FTP_PORT: $FTP_PORT
+      FTP_USERNAME: $FTP_USERNAME
+      FTP_PASSWORD: $FTP_PASSWORD
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
