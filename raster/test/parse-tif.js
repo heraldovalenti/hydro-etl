@@ -9,7 +9,7 @@ const {propsFromFile} = require('../src/tiff');
  */
 
 const files = {
-  sqpe: './20230116_SQPE-OBS.tif',
+  sqpe: './SQPE-OBS_de_20231026_1200h_a_20231027_1200h.tif', //'./20230116_SQPE-OBS.tif',
   wrf: 'prcpWRF_dia+03_de_2023-04-05_1800h_a_2023-04-08_1800h_ciclo-18.tif',
 };
 const fileName = files.sqpe;
