@@ -128,7 +128,7 @@ const parseFile = (fileEntry) => {
     console.warn(
       `Parse configuration for file ${fileEntry.fileName} not found`,
     );
-    return {};
+    return [];
   }
   console.log(`parsing ${fileEntry.fileName}`);
   const parserName = fileConfig[0].parser;
