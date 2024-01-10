@@ -6,10 +6,10 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "babel src -d dist",
-    "start": "yarn build && functions-framework --target=forecasts",
+    "start": "yarn build && functions-framework --target=forecasts --port=8084",
     "test": "yarn clean && jest",
     "deploy-prep": "yarn build && rm -rf node_modules && yarn install --production",
-    "deploy": "gcloud functions deploy forecasts --runtime=nodejs14 --trigger-http --allow-unauthenticated --entry-point=forecasts"
+    "deploy": "gcloud functions deploy forecasts --runtime=nodejs18 --trigger-http --allow-unauthenticated --entry-point=forecasts"
   },
   "repository": {
     "type": "git",
