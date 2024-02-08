@@ -11,9 +11,9 @@ const {propsFromFile} = require('../src/tiff');
 const files = {
   sqpe: './SQPE-OBS_de_20231026_1200h_a_20231027_1200h.tif', //'./20230116_SQPE-OBS.tif',
   wrf: 'prcpWRF_dia+03_de_2023-04-05_1800h_a_2023-04-08_1800h_ciclo-18.tif',
+  acum: '240208.1200.acum06hs.tif',
 };
-const fileName = files.sqpe;
-const action = async () => {
+const action = async (fileName) => {
   try {
     const readResult = readFileSync(fileName);
     console.log(readResult);
@@ -53,4 +53,6 @@ const action = async () => {
     console.log(`Error: ${e} ${JSON.stringify(e)}`);
   }
 };
-action();
+action(files.sqpe);
+action(files.wrf);
+action(files.acum);

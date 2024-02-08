@@ -9,7 +9,7 @@ const getFileData = async (ftpClient, {fileName}) => {
   return result;
 };
 const defaultType = 'WRF';
-const fileTypes = {WRF: 'prcpWRF_dia', SQPE: 'SQPE-OBS'};
+const fileTypes = {WRF: 'prcpWRF_dia', SQPE: 'SQPE-OBS', ACUM: '.acum06hs.tif'};
 const listFiles = async (ftpClient, {from = 0, to = 3, type = defaultType}) => {
   const fileList = await ftpClient.listFiles();
   const tiffFileList = fileList.filter((fileDescriptor) =>
