@@ -29,7 +29,15 @@ const allData = async (ftpClient, {from = 0, to = 3, type = defaultType}) => {
     return new Promise(async (res, rej) => {
       let fileData = {};
       const {name: fileName} = fileDescriptor;
-      fileData = await getFileData(ftpClient, {fileName});
+      try {
+        fileData = await getFileData(ftpClient, {fileName});
+      } catch (e) {
+        console.warn(
+          'Error obtaining file data',
+          {fileName, fileDescriptor},
+          e,
+        );
+      }
       res({fileDescriptor, fileData});
     });
   });
