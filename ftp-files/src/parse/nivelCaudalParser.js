@@ -1,4 +1,4 @@
-const {Observation} = require('../Model/observation');
+const {Observation} = require('../model/observation');
 const {parseToISOString} = require('../util/date');
 
 const LINE_SEPARATOR = `\n`;

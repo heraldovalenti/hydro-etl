@@ -4,7 +4,7 @@ const {
   DIMENSION_NIVEL,
   DIMENSION_ALARMA,
   Observation,
-} = require('../Model/observation');
+} = require('../model/observation');
 const {parseToISOString} = require('../util/date');
 
 const DATE_FORMAT = `YYYY-MM-DD hh:mm:ss.SSS`;

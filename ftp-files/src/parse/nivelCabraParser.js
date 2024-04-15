@@ -2,7 +2,7 @@ const {
   Observation,
   DIMENSION_NIVEL,
   DIMENSION_CAUDAL,
-} = require('../Model/observation');
+} = require('../model/observation');
 const {parseToISOString} = require('../util/date');
 const LINE_SEPARATOR = `\n`;
 const COMMA_SEPARATOR = `,`;

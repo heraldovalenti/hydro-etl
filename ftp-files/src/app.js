@@ -1,8 +1,8 @@
 const express = require('express');
-const {ftpConfig} = require('./ftpConfig');
-const {FTPClient} = require('./ftp');
-const {allData} = require('./ftpHandlers');
-const {parseFile} = require('../Parse');
+const {ftpConfig} = require('./ftp/ftpConfig');
+const {FTPClient} = require('./ftp/ftpClient');
+const {allData} = require('./ftp/ftpHandlers');
+const {parseFile} = require('./parse');
 
 const app = express();
 

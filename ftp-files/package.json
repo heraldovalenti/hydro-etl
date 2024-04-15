@@ -1,10 +1,10 @@
 {
-  "name": "hydro-etl-one-drive",
+  "name": "hydro-etl-ftp-files",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "env-cmd -f .env node src/ftp-files/app.js",
+    "start": "env-cmd -f .env node src/app.js",
     "test": "jest"
   },
   "repository": {

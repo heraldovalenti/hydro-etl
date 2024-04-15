@@ -1,4 +1,4 @@
-const {Observation, DIMENSION_LLUVIA} = require('../Model/observation');
+const {Observation, DIMENSION_LLUVIA} = require('../model/observation');
 const {parseToISOString} = require('../util/date');
 
 const LINE_SEPARATOR = `\n`;
