@@ -1,0 +1,33 @@
+{
+  "name": "hydro-etl-gsheet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "auth": "node auth.js",
+    "start": "node src/server.js",
+    "test": "jest",
+    "deploy-prep": "rm -rf node_modules && yarn install --production",
+    "deploy": "gcloud functions deploy gsheet --runtime=nodejs18 --trigger-http --allow-unauthenticated --entry-point=gsheet --env-vars-file env.yaml"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heraldovalenti/hydro-etl.git"
+  },
+  "author": "Heraldo Valenti <heraldovalenti@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "googleapis": "105"
+  },
+  "devDependencies": {
+    "@google-cloud/local-auth": "2.1.0",
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.4",
+    "@babel/preset-env": "^7.11.0",
+    "babel-jest": "^26.3.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jest": "^26.4.0"
+  }
+}

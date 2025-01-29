@@ -4,3 +4,6 @@ dist/
 raster/.env
 raster/env.yaml
 ftp-files/.env
+gsheet/.env
+gsheet/env.yaml
+gsheet/credentials.json
