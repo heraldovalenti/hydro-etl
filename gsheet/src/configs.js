@@ -1,9 +1,10 @@
+const GSHEET_DATE_FORMAT = 'yyyy-MM-dd H:mm:ss';
 const stations = [
   {
     id: 'miraflores',
-    page: 'Sheet1',
+    page: 'Portal de Monitoreo',
     range: 'A:C',
-    skipRows: 1,
+    skipRows: 5,
     columns: [
       {
         name: 'date',
@@ -17,9 +18,9 @@ const stations = [
   },
   {
     id: 'alemania',
-    page: 'Sheet2',
+    page: 'Portal de Monitoreo',
     range: 'D:F',
-    skipRows: 1,
+    skipRows: 5,
     columns: [
       {
         name: 'date',
@@ -33,9 +34,9 @@ const stations = [
   },
   {
     id: 'quijano',
-    page: 'Sheet3',
+    page: 'Portal de Monitoreo',
     range: 'G:I',
-    skipRows: 1,
+    skipRows: 5,
     columns: [
       {
         name: 'date',
@@ -48,4 +49,4 @@ const stations = [
     ],
   },
 ];
-module.exports = { stations };
+module.exports = { stations, GSHEET_DATE_FORMAT };

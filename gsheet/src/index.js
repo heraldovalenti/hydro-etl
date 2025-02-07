@@ -1,7 +1,8 @@
 const { google } = require('googleapis');
-const { stations } = require('./configs');
+const { stations, GSHEET_DATE_FORMAT } = require('./configs');
+const { parse, parseISO, isEqual, isAfter, isBefore } = require('date-fns');
 
-const fetchPageData = async (station, pageSize) => {
+const fetchPageData = async (station, pageSize, from, to) => {
   const auth = google.auth.fromJSON(authConfig);
   const sheets = google.sheets({ version: 'v4', auth });
   const { id, page, range, columns, skipRows } = station;
@@ -9,7 +10,7 @@ const fetchPageData = async (station, pageSize) => {
     spreadsheetId,
     range: `${page}!${range}`,
   });
-  const observations = [];
+  let observations = [];
   const rows = res.data.values.slice(skipRows);
   rows
     .filter((r) => r.length > 0)
@@ -20,25 +21,38 @@ const fetchPageData = async (station, pageSize) => {
       });
       observations.push(observation);
     });
-
+  if (from) {
+    const fromDate = parseISO(from);
+    observations = observations.filter((o) => {
+      const oDate = parse(o.date, GSHEET_DATE_FORMAT, new Date());
+      return isEqual(oDate, fromDate) || isAfter(oDate, fromDate);
+    });
+  }
+  if (to) {
+    const toDate = parseISO(to);
+    observations = observations.filter((o) => {
+      const oDate = parse(o.date, GSHEET_DATE_FORMAT, new Date());
+      return isEqual(oDate, toDate) || isBefore(oDate, toDate);
+    });
+  }
   return {
     id,
     observations: observations.slice(-pageSize),
   };
 };
 
-const root = async ({ stationId, pageSize = 20 } = {}) => {
-  console.log('fetching data for', { stationId, pageSize });
+const root = async ({ stationId, pageSize = 20, from, to } = {}) => {
+  console.log('fetching data for', { stationId, pageSize, from, to });
   if (stationId) {
     const station = stations.find((s) => s.id === stationId);
     if (!station) {
       return null;
     }
-    const result = await fetchPageData(station, pageSize);
+    const result = await fetchPageData(station, pageSize, from, to);
     return result;
   }
 
-  const toResolve = stations.map((s) => fetchPageData(s, pageSize));
+  const toResolve = stations.map((s) => fetchPageData(s, pageSize, from, to));
 
   const result = await Promise.all(toResolve);
   return result;

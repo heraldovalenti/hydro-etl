@@ -17,14 +17,15 @@
   "author": "Heraldo Valenti <heraldovalenti@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "date-fns": "^4.1.0",
     "dotenv": "^16.3.1",
     "googleapis": "105"
   },
   "devDependencies": {
-    "@google-cloud/local-auth": "2.1.0",
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.11.4",
     "@babel/preset-env": "^7.11.0",
+    "@google-cloud/local-auth": "2.1.0",
     "babel-jest": "^26.3.0",
     "cors": "^2.8.5",
     "express": "^4.19.2",
