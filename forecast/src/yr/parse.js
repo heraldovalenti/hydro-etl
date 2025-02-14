@@ -4,9 +4,7 @@ export const parseDetailsHtml = (html) => {
   const root = parse(html);
   const appRoot = root.querySelector('#app-root');
   const detailsTable = appRoot.querySelector('#details-page__table');
-  const dayHeaders = detailsTable.querySelectorAll(
-    '.details-page__day-heading',
-  );
+  const dayHeaders = detailsTable.querySelectorAll('.heading--color-primary');
   const dayTables = detailsTable.querySelectorAll('.hourly-weather-table');
   const result = {};
   for (let i = 0; i < dayHeaders.length && i < dayTables.length; i++) {
