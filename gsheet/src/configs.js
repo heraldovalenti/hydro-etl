@@ -48,5 +48,37 @@ const stations = [
       },
     ],
   },
+  {
+    id: 'maroma',
+    page: 'Portal de Monitoreo',
+    range: 'J:L',
+    skipRows: 5,
+    columns: [
+      {
+        name: 'date',
+        index: 0,
+      },
+      {
+        name: 'height',
+        index: 2,
+      },
+    ],
+  },
+  {
+    id: 'medina',
+    page: 'Portal de Monitoreo',
+    range: 'M:O',
+    skipRows: 5,
+    columns: [
+      {
+        name: 'date',
+        index: 0,
+      },
+      {
+        name: 'height',
+        index: 2,
+      },
+    ],
+  },
 ];
 module.exports = { stations, GSHEET_DATE_FORMAT };
