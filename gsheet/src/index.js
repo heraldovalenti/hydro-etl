@@ -19,7 +19,11 @@ const fetchPageData = async (station, pageSize, from, to) => {
       columns.forEach(({ name, index }) => {
         observation[name] = row[index];
       });
-      observations.push(observation);
+      const notEmpty = Object.values(observation).reduce(
+        (prev, curr) => !!curr && prev,
+        true,
+      );
+      if (notEmpty) observations.push(observation);
     });
   if (from) {
     const fromDate = parseISO(from);
