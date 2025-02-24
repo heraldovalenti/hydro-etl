@@ -2,8 +2,7 @@ const { google } = require('googleapis');
 const { stations, GSHEET_DATE_FORMAT } = require('./configs');
 const { parse, parseISO, isEqual, isAfter, isBefore } = require('date-fns');
 
-const fetchPageData = async (station, pageSize, from, to) => {
-  const auth = google.auth.fromJSON(authConfig);
+const fetchPageData = async (auth, station, pageSize, from, to) => {
   const sheets = google.sheets({ version: 'v4', auth });
   const { id, page, range, columns, skipRows } = station;
   const res = await sheets.spreadsheets.values.get({
@@ -45,18 +44,26 @@ const fetchPageData = async (station, pageSize, from, to) => {
   };
 };
 
-const root = async ({ stationId, pageSize = 20, from, to } = {}) => {
+const root = async (req) => {
+  const authToken = req.get('auth-token');
+  const { stationId, pageSize = 20, from, to } = req.query || {};
   console.log('fetching data for', { stationId, pageSize, from, to });
+  const auth = google.auth.fromJSON({
+    ...authConfig,
+    refresh_token: authToken,
+  });
   if (stationId) {
     const station = stations.find((s) => s.id === stationId);
     if (!station) {
       return null;
     }
-    const result = await fetchPageData(station, pageSize, from, to);
+    const result = await fetchPageData(auth, station, pageSize, from, to);
     return result;
   }
 
-  const toResolve = stations.map((s) => fetchPageData(s, pageSize, from, to));
+  const toResolve = stations.map((station) =>
+    fetchPageData(auth, station, pageSize, from, to),
+  );
 
   const result = await Promise.all(toResolve);
   return result;
@@ -82,7 +89,7 @@ const gsheet = async (req, res) => {
   // }
   res.set('Content-Type', 'application/json');
   try {
-    const result = await api(query);
+    const result = await api(req);
     res.status(200).send(JSON.stringify(result));
   } catch (e) {
     console.error(e);
@@ -94,7 +101,7 @@ const authConfig = {
   type: process.env['TYPE'],
   client_id: process.env['CLIENT_ID'],
   client_secret: process.env['CLIENT_SECRET'],
-  refresh_token: process.env['REFRESH_TOKEN'],
+  // refresh_token: process.env['REFRESH_TOKEN'],
 };
 const spreadsheetId = process.env['SPREADSHEET_ID'];
 

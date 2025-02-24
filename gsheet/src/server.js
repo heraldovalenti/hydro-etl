@@ -11,13 +11,7 @@ app.use(cors());
 app.get('/gsheet', (req, res) => {
   // const path = req.path.substring(7);
   // console.log('mapping request', {from: req.path, to: path});
-  gsheet(
-    {
-      ...req,
-      // path
-    },
-    res,
-  );
+  gsheet(req, res);
 });
 
 app.listen(port, () => {
