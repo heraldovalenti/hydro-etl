@@ -1,6 +1,13 @@
 const { google } = require('googleapis');
 const { stations, GSHEET_DATE_FORMAT } = require('./configs');
-const { parse, parseISO, isEqual, isAfter, isBefore } = require('date-fns');
+const {
+  parse,
+  parseISO,
+  isEqual,
+  isAfter,
+  isBefore,
+  compareAsc,
+} = require('date-fns');
 
 const fetchPageData = async (auth, station, pageSize, from, to) => {
   const sheets = google.sheets({ version: 'v4', auth });
@@ -38,9 +45,15 @@ const fetchPageData = async (auth, station, pageSize, from, to) => {
       return isEqual(oDate, toDate) || isBefore(oDate, toDate);
     });
   }
+  observations.sort((o1, o2) => {
+    const o1Date = parse(o1.date, GSHEET_DATE_FORMAT, new Date());
+    const o2Date = parse(o2.date, GSHEET_DATE_FORMAT, new Date());
+    return compareAsc(o1Date, o2Date);
+  });
+  observations = observations.slice(-pageSize);
   return {
     id,
-    observations: observations.slice(-pageSize),
+    observations,
   };
 };
 
