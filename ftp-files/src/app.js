@@ -1,6 +1,4 @@
 const express = require('express');
-const {ftpConfig} = require('./ftp/ftpConfig');
-const {FTPClient} = require('./ftp/ftpClient');
 const {allData} = require('./ftp/ftpHandlers');
 const {parseFile} = require('./parse');
 
@@ -9,10 +7,7 @@ const app = express();
 app.get('/latestData', async (req, res) => {
   const {path, query} = req;
   try {
-    const ftpClient = new FTPClient(ftpConfig);
-    await ftpClient.open();
-    const {fileList} = await allData(ftpClient, query);
-    ftpClient.close();
+    const {fileList} = await allData(query);
 
     const parsedFileEntries = fileList
       .map(({fileDescriptor: {name}, fileData}) => ({

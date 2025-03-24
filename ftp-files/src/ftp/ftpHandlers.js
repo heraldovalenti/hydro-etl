@@ -1,12 +1,22 @@
+const {FTPClient} = require('./ftpClient');
+const {ftpConfig} = require('./ftpConfig');
+
 const defaultParams = {
   from: 0,
   to: 20,
 };
 
-const getFileData = async (ftpClient, {fileName}) => {
+const getFileData = async ({fileName}) => {
+  const start = new Date();
+  const ftpClient = new FTPClient(ftpConfig);
+  await ftpClient.open();
   const stream = await ftpClient.getFile(fileName);
   const arrayBuffer = await streamToArrayBuffer(stream);
-  return new TextDecoder('utf8').decode(arrayBuffer);
+  const result = new TextDecoder('utf8').decode(arrayBuffer);
+  ftpClient.close();
+  const end = new Date();
+  console.log('retrieved file data', fileName, end.getTime() - start.getTime());
+  return result;
 };
 
 const streamToArrayBuffer = (stream) => {
@@ -30,32 +40,38 @@ const streamToArrayBuffer = (stream) => {
   });
 };
 
-const listFiles = async (
-  ftpClient,
-  {from = defaultParams.from, to = defaultParams.to},
-) => {
+const listFiles = async ({
+  from = defaultParams.from,
+  to = defaultParams.to,
+} = {}) => {
+  const start = new Date();
+  const ftpClient = new FTPClient(ftpConfig);
+  await ftpClient.open();
   const fileList = await ftpClient.listFiles();
+  ftpClient.close();
   const txtFileList = fileList.filter(
     ({name, size}) => name.endsWith('.txt') && size > 0,
   );
   txtFileList.sort(
     (f1, f2) => new Date(f2.date).getTime() - new Date(f1.date).getTime(),
   );
+  const end = new Date();
+  console.log('retrieved file list', end.getTime() - start.getTime());
   return {
     fileList: txtFileList.slice(from, to),
     total: txtFileList.length,
   };
 };
-const allData = async (
-  ftpClient,
-  {from = defaultParams.from, to = defaultParams.to},
-) => {
-  const {fileList, total} = await listFiles(ftpClient, {from, to});
+const allData = async ({
+  from = defaultParams.from,
+  to = defaultParams.to,
+} = {}) => {
+  const {fileList, total} = await listFiles({from, to});
   const resultPromises = fileList.map((fileDescriptor) => {
     return new Promise(async (res, rej) => {
       let fileData = {};
       const {name: fileName} = fileDescriptor;
-      fileData = await getFileData(ftpClient, {fileName});
+      fileData = await getFileData({fileName});
       res({fileDescriptor, fileData});
     });
   });
