@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "auth": "node auth.js",
-    "start": "node src/server.js",
+    "start": "nodemon src/server.js",
     "test": "jest",
     "deploy-prep": "rm -rf node_modules && yarn install --production",
     "deploy": "gcloud functions deploy gsheet --runtime=nodejs18 --trigger-http --allow-unauthenticated --entry-point=gsheet --env-vars-file env.yaml"
@@ -29,6 +29,7 @@
     "babel-jest": "^26.3.0",
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "jest": "^26.4.0"
+    "jest": "^26.4.0",
+    "nodemon": "^3.1.9"
   }
 }
